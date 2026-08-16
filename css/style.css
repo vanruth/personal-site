@@ -36,7 +36,7 @@
   --step-1:  1.125rem;
   --step-2:  1.5rem;
 
-  --measure: 56rem;
+  --measure: 47rem;
   --gutter:  1.75rem;
 }
 
@@ -189,7 +189,6 @@ p + p { margin-top: 1.1rem; }
     right: 0;
     z-index: 10;
     padding-block: 3.25rem 1.75rem;
-    border-bottom: 1px solid var(--border);
   }
 }
 
@@ -202,7 +201,7 @@ p + p { margin-top: 1.1rem; }
 @media (min-width: 48rem) {
   .masthead__inner {
     grid-template-columns: 1fr auto;
-    gap: 3.5rem;
+    gap: 2.5rem;
     align-items: start;
   }
 }
@@ -219,20 +218,24 @@ p + p { margin-top: 1.1rem; }
 }
 
 .masthead__name {
-  font-size: clamp(2.25rem, 7vw, 3.25rem);
+  font-size: clamp(1.6rem, 4.5vw, 2rem);
   font-weight: 750;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 1.05;
+  letter-spacing: 0.045em;
+  line-height: 1.1;
   color: var(--text);
 }
 
+/* `balance` evens out the line lengths rather than filling each line and
+   leaving a short one behind, so the bio reads as a tidy block. The max-width
+   keeps it to the two or three lines that balancing works well across. */
 .masthead__bio {
-  margin-top: 1.1rem;
-  max-width: 34rem;
-  font-size: var(--step-1);
-  line-height: 1.55;
+  margin-top: 0.9rem;
+  max-width: 25rem;
+  font-size: var(--step-0);
+  line-height: 1.6;
   color: var(--text-muted);
+  text-wrap: balance;
 }
 
 /* "Thinking" and "building" — the two verbs the whole site is about — sit
@@ -333,7 +336,10 @@ p + p { margin-top: 1.1rem; }
     padding-top: calc(var(--masthead-h, 17rem)
                       + max(2.5rem, (100vh - var(--masthead-h, 17rem)) / 2
                                     - var(--first-card-offset, 13rem)));
-    padding-bottom: max(6rem, calc((100vh - var(--masthead-h, 17rem)) / 2
+    /* The floor is only a backstop for when the exact figure goes small or
+       negative — a tall last card, a short window. Keeping it low lets the
+       exact value win in the ordinary case and land the card dead centre. */
+    padding-bottom: max(2rem, calc((100vh - var(--masthead-h, 17rem)) / 2
                                    - var(--last-card-offset, 10rem)));
   }
 
