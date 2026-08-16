@@ -61,135 +61,164 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="layout">
+<!-- Ornament only — hidden from assistive tech and inert to the pointer. -->
+<div class="decor" aria-hidden="true">
+  <svg class="decor__a" viewBox="0 0 120 24" fill="none" stroke="currentColor"
+       stroke-width="2.5" stroke-linecap="round">
+    <path d="M2 12c6-11 12-11 18 0s12 11 18 0 12-11 18 0 12 11 18 0 12-11 18 0"/>
+  </svg>
 
-  <!-- ===== Sidebar: sticky on desktop, stacked on mobile ===== -->
-  <header class="sidebar">
-    <div>
-      <h1 class="sidebar__name">Ruth</h1>
+  <svg class="decor__b" viewBox="0 0 40 40" fill="none" stroke="currentColor"
+       stroke-width="3" stroke-linecap="round">
+    <path d="M20 4v32M6.2 12l27.6 16M33.8 12L6.2 28"/>
+  </svg>
 
-      <p class="sidebar__bio">
+  <svg class="decor__c" viewBox="0 0 40 40" fill="none" stroke="currentColor"
+       stroke-width="2.5">
+    <circle cx="20" cy="20" r="16"/>
+  </svg>
+
+  <svg class="decor__d" viewBox="0 0 120 24" fill="none" stroke="currentColor"
+       stroke-width="2.5" stroke-linecap="round">
+    <path d="M2 12c6 11 12 11 18 0s12-11 18 0 12 11 18 0 12-11 18 0 12 11 18 0"/>
+  </svg>
+
+  <svg class="decor__e" viewBox="0 0 40 40" fill="none" stroke="currentColor"
+       stroke-width="3" stroke-linecap="round">
+    <path d="M20 6v28M6 20h28"/>
+  </svg>
+
+  <svg class="decor__f" viewBox="0 0 40 40" fill="none" stroke="currentColor"
+       stroke-width="3" stroke-linecap="round">
+    <path d="M20 4v32M6.2 12l27.6 16M33.8 12L6.2 28"/>
+  </svg>
+</div>
+
+<header class="masthead">
+  <div class="masthead__inner wrap">
+    <div class="masthead__lead">
+      <h1 class="masthead__name">Ruth</h1>
+      <p class="masthead__bio">
         <span class="bio-key">Thinking</span> across technology, business and
         society; <span class="bio-key">building</span> along the way.
       </p>
+    </div>
 
-      <div class="sidebar__contact">
-        <a class="email-link" href="mailto:vanruth123@gmail.com">
-          vanruth123@gmail.com
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor"
-               stroke-width="1.75" aria-hidden="true">
-            <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10"/>
-          </svg>
-        </a>
-      </div>
+    <div class="masthead__aside">
+      <a class="email-link" href="mailto:vanruth123@gmail.com">
+        vanruth123@gmail.com
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor"
+             stroke-width="1.75" aria-hidden="true">
+          <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10"/>
+        </svg>
+      </a>
 
-      <nav class="sidebar__nav" aria-label="Sections">
+      <nav class="masthead__nav" aria-label="Sections">
         <a href="#who-i-am">Who I am</a>
         <a href="#career">Career history</a>
         <a href="#experiments">Experiments</a>
       </nav>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- ===== Scrolling content ===== -->
-  <main class="content" id="main">
+<main class="content wrap" id="main">
 
-    <a class="scroll-step scroll-prev is-hidden" href="#who-i-am"
-       aria-label="Previous section">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           aria-hidden="true">
-        <path d="M12 19V5M5 12l7-7 7 7"/>
-      </svg>
-    </a>
+  <a class="scroll-step scroll-prev is-hidden" href="#who-i-am"
+     aria-label="Previous section">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </a>
 
-    <section class="section" id="who-i-am" aria-labelledby="who-i-am-label">
-      <h2 class="section__label" id="who-i-am-label">Who I am</h2>
-      <div class="section__body">
-        <p>
-          I'm a <strong>multidisciplinarian</strong>, with a background in
-          philosophy, politics, economics and data science. I enjoy thinking
-          about how institutions, systems and theories work, but I also love
-          tinkering with new technologies and exploring business ideas.
-        </p>
-        <p>
-          I've worked across product management and marketing, and I enjoy
-          building small digital products of my own.
-        </p>
-      </div>
-    </section>
+  <section class="section" id="who-i-am" aria-labelledby="who-i-am-label">
+    <h2 class="section__label" id="who-i-am-label">Who I am</h2>
+    <div class="section__body">
+      <p>
+        I'm a <strong>multidisciplinarian</strong>, with a background in
+        philosophy, politics, economics and data science. I enjoy thinking
+        about how institutions, systems and theories work, but I also love
+        tinkering with new technologies and exploring business ideas.
+      </p>
+      <p>
+        I've worked across product management and marketing, and I enjoy
+        building small digital products of my own.
+      </p>
+    </div>
+  </section>
 
-    <section class="section" id="career" aria-labelledby="career-label">
-      <h2 class="section__label" id="career-label">Career history</h2>
-      <ol class="cv">
-        <li>
-          <div class="cv__line">
-            <span class="cv__org">Tradeweb</span>
-            <span class="cv__dots" aria-hidden="true"></span>
-            <span class="cv__year">2024</span>
-          </div>
-          <p class="cv__role">Product management intern</p>
-        </li>
-        <li>
-          <div class="cv__line">
-            <span class="cv__org">Hatch</span>
-            <span class="cv__dots" aria-hidden="true"></span>
-            <span class="cv__year">2023</span>
-          </div>
-          <p class="cv__role">Marketing intern</p>
-        </li>
-        <li>
-          <div class="cv__line">
-            <span class="cv__org">MFA Singapore</span>
-            <span class="cv__dots" aria-hidden="true"></span>
-            <span class="cv__year">2022</span>
-          </div>
-          <p class="cv__role">Information services assistant</p>
-        </li>
-        <li>
-          <div class="cv__line">
-            <span class="cv__org">UCL</span>
-            <span class="cv__dots" aria-hidden="true"></span>
-            <span class="cv__year">2022–25</span>
-          </div>
-          <p class="cv__role">BSc Philosophy, Politics &amp; Economics with Social Data Science</p>
-        </li>
-      </ol>
-    </section>
+  <section class="section" id="career" aria-labelledby="career-label">
+    <h2 class="section__label" id="career-label">Career history</h2>
+    <ol class="cv">
+      <li>
+        <div class="cv__line">
+          <span class="cv__org">Tradeweb</span>
+          <span class="cv__dots" aria-hidden="true"></span>
+          <span class="cv__year">2024</span>
+        </div>
+        <p class="cv__role">Product management intern</p>
+      </li>
+      <li>
+        <div class="cv__line">
+          <span class="cv__org">Hatch</span>
+          <span class="cv__dots" aria-hidden="true"></span>
+          <span class="cv__year">2023</span>
+        </div>
+        <p class="cv__role">Marketing intern</p>
+      </li>
+      <li>
+        <div class="cv__line">
+          <span class="cv__org">MFA Singapore</span>
+          <span class="cv__dots" aria-hidden="true"></span>
+          <span class="cv__year">2022</span>
+        </div>
+        <p class="cv__role">Information services assistant</p>
+      </li>
+      <li>
+        <div class="cv__line">
+          <span class="cv__org">UCL</span>
+          <span class="cv__dots" aria-hidden="true"></span>
+          <span class="cv__year">2022–25</span>
+        </div>
+        <p class="cv__role">BSc Philosophy, Politics &amp; Economics with Social Data Science</p>
+      </li>
+    </ol>
+  </section>
 
-    <section class="section" id="experiments" aria-labelledby="experiments-label">
-      <h2 class="section__label" id="experiments-label">Experiments</h2>
-      <div class="section__body">
-        <p>
-          Small digital products and side projects — things I build to find out
-          how they work.
-        </p>
-        <p>
-          <a class="text-link" href="/experiments">Explore my experiments →</a>
-        </p>
-      </div>
-    </section>
+  <section class="section" id="experiments" aria-labelledby="experiments-label">
+    <h2 class="section__label" id="experiments-label">Experiments</h2>
+    <div class="section__body">
+      <p>
+        Small digital products and side projects — things I build to find out
+        how they work.
+      </p>
+      <p>
+        <a class="text-link" href="/experiments">Explore my experiments →</a>
+      </p>
+    </div>
+  </section>
 
-    <a class="scroll-step scroll-next" href="#career" aria-label="Next section">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           aria-hidden="true">
-        <path d="M12 5v14M5 12l7 7 7-7"/>
-      </svg>
-    </a>
+  <a class="scroll-step scroll-next" href="#career" aria-label="Next section">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </a>
 
-    <footer class="content__footer">
-      <p>© 2026 Ruth</p>
-    </footer>
+  <footer class="content__footer">
+    <p>© 2026 Ruth</p>
+  </footer>
 
-  </main>
-</div>
+</main>
 
-<!-- Progressive enhancement: highlights the nav link for the section you're
-     reading. Without JS the links still work as plain anchors. -->
+<!-- Progressive enhancement: marks the card being read and steps the arrows
+     through the stack. Without JS the links still work as plain anchors. -->
 <script>
 (function () {
-  var links = [].slice.call(document.querySelectorAll('.sidebar__nav a'));
+  var links = [].slice.call(document.querySelectorAll('.masthead__nav a'));
   var sections = [].slice.call(document.querySelectorAll('.section'));
 
   // Nothing to drive the highlight with — drop back to the unblurred page
@@ -200,8 +229,18 @@
   }
 
   var content = document.querySelector('.content');
+  var masthead = document.querySelector('.masthead');
   var prevArrow = document.querySelector('.scroll-prev');
   var nextArrow = document.querySelector('.scroll-next');
+  var wide = window.matchMedia('(min-width: 62rem)');
+
+  // The masthead is pinned only above the breakpoint; below it, it scrolls
+  // away with everything else and takes up no fixed screen space.
+  function headHeight() {
+    return wide.matches && masthead
+      ? masthead.getBoundingClientRect().height
+      : 0;
+  }
 
   var map = {};
   links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
@@ -214,7 +253,10 @@
                    document.documentElement.scrollHeight - 2;
     if (atBottom) return sections[sections.length - 1].id;
 
-    var probe = window.innerHeight * 0.25;
+    // The probe line sits a quarter down the strip below the masthead, not the
+    // whole window — otherwise it would fall behind the pinned header.
+    var head = headHeight();
+    var probe = head + (window.innerHeight - head) * 0.25;
     var id = sections[0].id;
     sections.forEach(function (s) {
       if (s.getBoundingClientRect().top <= probe) id = s.id;
@@ -261,22 +303,24 @@
     window.requestAnimationFrame(update);
   }
 
-  // Distance from each end of the content column's inner box to the centre of
-  // the card at that end. Measured rather than assumed, so it stays right when
-  // the copy is edited, and so it already accounts for the arrows sitting
-  // between the column edge and the outermost cards. Because the padding it
-  // feeds shifts the column and the card by the same amount, these values are
-  // stable — reading them back doesn't move them.
-  function measureEnds() {
+  // How much screen the pinned masthead takes, and how far the last card's
+  // centre sits from the bottom edge of the content column. CSS can't work
+  // either out, and the padding sized from them moves column and card by the
+  // same amount, so reading them back doesn't disturb them.
+  function measure() {
+    var head = headHeight();
     var cs = window.getComputedStyle(content);
     var box = content.getBoundingClientRect();
     var innerTop = box.top + parseFloat(cs.paddingTop);
     var innerBottom = box.bottom - parseFloat(cs.paddingBottom);
-
     var first = sections[0].getBoundingClientRect();
     var last = sections[sections.length - 1].getBoundingClientRect();
 
+    // Measured to each outer card's centre from the column's inner edge, not
+    // just half its height — the arrows sit between the two, and leaving them
+    // out throws the centring off by exactly an arrow.
     var style = document.documentElement.style;
+    style.setProperty('--masthead-h', head + 'px');
     style.setProperty('--first-card-offset',
       (first.top + first.height / 2 - innerTop) + 'px');
     style.setProperty('--last-card-offset',
@@ -284,18 +328,17 @@
   }
 
   // An anchor normally lands a card's top near the top of the screen. Giving
-  // each card a scroll-margin of half the leftover space instead lands it in
-  // the middle, level with the sidebar. Doing it this way means the browser's
-  // own anchor handling does the scrolling, so the arrows and nav links keep
-  // working even if scripted scrolling is unavailable — there is no click
-  // handler to fail. Cleared below the breakpoint, where cards simply stack.
-  var wide = window.matchMedia('(min-width: 62rem)');
-
+  // each card a scroll-margin instead lands it in the middle of the strip left
+  // below the masthead — the space the cards actually occupy. Doing it in CSS
+  // means the browser's own anchor handling can centre a card with no script
+  // involved. Cleared below the breakpoint, where cards simply stack.
   function setScrollMargins() {
+    var head = headHeight();
     sections.forEach(function (s) {
       if (!wide.matches) { s.style.scrollMarginTop = ''; return; }
-      var leftover = (window.innerHeight - s.getBoundingClientRect().height) / 2;
-      s.style.scrollMarginTop = Math.max(24, leftover) + 'px';
+      var strip = window.innerHeight - head;
+      var leftover = (strip - s.getBoundingClientRect().height) / 2;
+      s.style.scrollMarginTop = (head + Math.max(24, leftover)) + 'px';
     });
   }
 
@@ -326,7 +369,7 @@
   });
 
   function remeasure() {
-    measureEnds();
+    measure();
     setScrollMargins();
     schedule();
   }
