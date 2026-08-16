@@ -26,7 +26,7 @@
 <!-- Structured data telling Google this page describes a person.
      NOTE: the "sameAs" array is what lets Google connect this site to your
      other profiles and treat you as a single identity. It is the strongest
-     signal available here and is currently empty. When you're ready, add:
+     signal available here and is currently absent. When you're ready, add:
        "sameAs": ["https://www.linkedin.com/in/...", "https://github.com/..."],
      and add a surname to "name" — a first name alone is very hard to rank. -->
 <script type="application/ld+json">
@@ -55,48 +55,65 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="site-header__name" href="/">Ruth</a>
-    <nav class="site-nav" aria-label="Main">
-      <a href="/" aria-current="page">Home</a>
-      <a href="/experiments">Experiments</a>
-    </nav>
-  </div>
-</header>
+<div class="layout">
 
-<main id="main">
-  <div class="wrap">
-
-    <section class="hero">
-      <h1 class="hero__h1">
-        <span class="hero__name">Ruth</span>
-        <span class="hero__tagline">Thinker&nbsp;+&nbsp;Builder</span>
+  <!-- ===== Sidebar: sticky on desktop, stacked on mobile ===== -->
+  <header class="sidebar">
+    <div>
+      <h1>
+        <span class="sidebar__name">Ruth</span>
+        <!-- The nbsp keeps "+" with "Thinker", so the only place this can
+             break is before "Builder" — "THINKER + / BUILDER", never
+             "THINKER / + BUILDER". -->
+        <span class="sidebar__tagline">Thinker&nbsp;+ Builder</span>
       </h1>
-      <p class="hero__sub">
+
+      <p class="sidebar__bio">
         Thinking across technology, business and society; building along the way.
       </p>
+
+      <nav class="sidebar__nav" aria-label="Sections">
+        <a href="#who-i-am">Who I am</a>
+        <a href="#career">Career history</a>
+        <a href="#experiments">Experiments</a>
+      </nav>
+    </div>
+
+    <div class="sidebar__contact">
+      <a class="email-link" href="mailto:vanruth123@gmail.com">
+        vanruth123@gmail.com
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor"
+             stroke-width="1.75" aria-hidden="true">
+          <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== Scrolling content ===== -->
+  <main class="content" id="main">
+
+    <section class="section" id="who-i-am" aria-labelledby="who-i-am-label">
+      <h2 class="section__label" id="who-i-am-label">Who I am</h2>
+      <div class="section__body">
+        <p>
+          I'm Ruth, with a background in <strong>Philosophy, Politics &amp;
+          Economics with Social Data Science</strong> from UCL.
+        </p>
+        <p>
+          At my core, I'm multidisciplinary. I enjoy thinking about how
+          institutions, systems and theories work, but I also love tinkering
+          with new technologies and exploring business ideas.
+        </p>
+        <p>
+          I've worked across product management and marketing, and I enjoy
+          building small digital products of my own.
+        </p>
+      </div>
     </section>
 
-    <section aria-labelledby="who-i-am">
-      <h2 id="who-i-am">Who I am</h2>
-      <p>
-        I'm Ruth, with a background in Philosophy, Politics &amp; Economics with
-        Social Data Science from UCL.
-      </p>
-      <p>
-        At my core, I'm multidisciplinary. I enjoy thinking about how
-        institutions, systems and theories work, but I also love tinkering with
-        new technologies and exploring business ideas.
-      </p>
-      <p>
-        I've worked across product management and marketing, and I enjoy
-        building small digital products of my own.
-      </p>
-    </section>
-
-    <section aria-labelledby="career">
-      <h2 id="career">Career history</h2>
+    <section class="section" id="career" aria-labelledby="career-label">
+      <h2 class="section__label" id="career-label">Career history</h2>
       <ol class="cv">
         <li>
           <div class="cv__line">
@@ -133,28 +150,72 @@
       </ol>
     </section>
 
-    <section aria-labelledby="contact">
-      <h2 id="contact">Get in touch</h2>
-      <p>
-        If you're working on something at the intersection of technology,
-        business and society, I'd be glad to hear from you.
-      </p>
-      <ul class="link-row">
-        <li><a href="mailto:vanruth123@gmail.com">vanruth123@gmail.com</a></li>
-      </ul>
+    <section class="section" id="experiments" aria-labelledby="experiments-label">
+      <h2 class="section__label" id="experiments-label">Experiments</h2>
+      <div class="section__body">
+        <p>
+          Small digital products and side projects — things I build to find out
+          how they work.
+        </p>
+        <p>
+          <a class="text-link" href="/experiments">Explore my experiments →</a>
+        </p>
+      </div>
     </section>
 
-  </div>
-</main>
+    <footer class="content__footer">
+      <p>© 2026 Ruth</p>
+    </footer>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <p>© <span>2026</span> Ruth</p>
-    <ul>
-      <li><a href="mailto:vanruth123@gmail.com">Email</a></li>
-    </ul>
-  </div>
-</footer>
+  </main>
+</div>
+
+<!-- Progressive enhancement: highlights the nav link for the section you're
+     reading. Without JS the links still work as plain anchors. -->
+<script>
+(function () {
+  var links = [].slice.call(document.querySelectorAll('.sidebar__nav a'));
+  var sections = [].slice.call(document.querySelectorAll('.section'));
+  if (!links.length || !sections.length) return;
+
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+
+  // The last section whose top has passed a line a quarter down the viewport
+  // is the one being read. Deriving the answer from scratch on every update,
+  // rather than toggling on events, is what keeps two links from staying lit.
+  function currentId() {
+    var atBottom = window.innerHeight + window.scrollY >=
+                   document.documentElement.scrollHeight - 2;
+    if (atBottom) return sections[sections.length - 1].id;
+
+    var probe = window.innerHeight * 0.25;
+    var id = sections[0].id;
+    sections.forEach(function (s) {
+      if (s.getBoundingClientRect().top <= probe) id = s.id;
+    });
+    return id;
+  }
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var id = currentId();
+    links.forEach(function (a) { a.classList.remove('is-active'); });
+    if (map[id]) map[id].classList.add('is-active');
+  }
+
+  function schedule() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  update();
+})();
+</script>
 
 </body>
 </html>

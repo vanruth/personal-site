@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Experiments — Ruth</title>
-<meta name="description" content="Small digital products and side experiments built by Ruth.">
+<meta name="description" content="Small digital products and side projects built by Ruth.">
 
 <!-- This page has no content yet. Letting Google index an empty page drags
      down how it judges the rest of the site, so it's held back deliberately.
      WHEN YOU ADD YOUR FIRST EXPERIMENT: delete the robots line below, and add
-     this page's <url> block back into sitemap.xml. -->
+     this page's <url> block back into sitemap.xml (see README). -->
 <meta name="robots" content="noindex, follow">
 
 <link rel="canonical" href="https://YOURNAME.netlify.app/experiments">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Experiments — Ruth">
-<meta property="og:description" content="Small digital products and side experiments built by Ruth.">
+<meta property="og:description" content="Small digital products and side projects built by Ruth.">
 <meta property="og:url" content="https://YOURNAME.netlify.app/experiments">
 <meta property="og:image" content="https://YOURNAME.netlify.app/img/og-image.jpg">
 <meta property="og:image:alt" content="Ruth — Thinker + Builder">
@@ -31,53 +31,69 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="site-header__name" href="/">Ruth</a>
-    <nav class="site-nav" aria-label="Main">
-      <a href="/">Home</a>
-      <a href="/experiments" aria-current="page">Experiments</a>
-    </nav>
-  </div>
-</header>
+<div class="layout">
 
-<main id="main">
-  <div class="wrap">
+  <header class="sidebar">
+    <div>
+      <p class="sidebar__name"><a href="/" style="text-decoration:none">Ruth</a></p>
+      <h1 class="sidebar__tagline">Experiments</h1>
 
-    <section>
-      <h1>Experiments</h1>
-      <p class="lede" style="margin-top:0.75rem">
-        Small digital products and things I've built to find out how they work.
+      <p class="sidebar__bio">
+        Small digital products and side projects — things I build to find out
+        how they work.
       </p>
+
+      <nav class="sidebar__nav" aria-label="Sections">
+        <a href="/#who-i-am">Who I am</a>
+        <a href="/#career">Career history</a>
+        <a href="/experiments" class="is-active" aria-current="page">Experiments</a>
+      </nav>
+    </div>
+
+    <div class="sidebar__contact">
+      <a class="email-link" href="mailto:vanruth123@gmail.com">
+        vanruth123@gmail.com
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor"
+             stroke-width="1.75" aria-hidden="true">
+          <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <main class="content" id="main">
+
+    <section class="section" aria-labelledby="soon-label">
+      <h2 class="section__label" id="soon-label">Coming soon</h2>
+      <div class="section__body">
+        <p>
+          Nothing here yet — this is where the things I build will live.
+        </p>
+        <p>
+          In the meantime, you can
+          <a class="text-link" href="mailto:vanruth123@gmail.com">get in touch</a>
+          or read a bit more <a class="text-link" href="/">about me</a>.
+        </p>
+      </div>
     </section>
 
-    <section aria-labelledby="soon">
-      <h2 id="soon">Coming soon</h2>
-      <p>
-        Nothing here yet — this is where the things I build will live.
-      </p>
-      <p>
-        In the meantime, you can
-        <a href="mailto:vanruth123@gmail.com">get in touch</a> or read a bit
-        more <a href="/">about me</a>.
-      </p>
-    </section>
+    <!-- TEMPLATE — copy this <li> for each experiment, drop it into a
+         <ul class="experiment-list">, then delete the "Coming soon" section
+         above and the noindex line in <head>.
 
-    <!-- TEMPLATE — copy this block for each experiment, then delete this comment.
-
-    <section aria-label="Experiments">
-      <ul class="project-list">
+    <section class="section" aria-labelledby="all-label">
+      <h2 class="section__label" id="all-label">All experiments</h2>
+      <ul class="experiment-list">
         <li>
-          <h3 class="project__title"><a href="https://example.com">Name</a></h3>
-          <p class="project__meta">Role · Year</p>
-          <p>What it is, in a sentence anyone could follow.</p>
-          <p>The interesting part — what was hard, or what you learned.</p>
+          <h3 class="experiment__title"><a href="https://example.com">Name</a></h3>
+          <p class="experiment__meta">Role · Year</p>
+          <div class="section__body">
+            <p>What it is, in a sentence anyone could follow.</p>
+            <p>The interesting part — what was hard, or what you learned.</p>
+          </div>
           <ul class="tags">
             <li>Tech one</li>
             <li>Tech two</li>
-          </ul>
-          <ul class="project__links">
-            <li><a href="https://example.com">Live</a></li>
           </ul>
         </li>
       </ul>
@@ -85,17 +101,12 @@
 
     -->
 
-  </div>
-</main>
+    <footer class="content__footer">
+      <p>© 2026 Ruth</p>
+    </footer>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <p>© <span>2026</span> Ruth</p>
-    <ul>
-      <li><a href="mailto:vanruth123@gmail.com">Email</a></li>
-    </ul>
-  </div>
-</footer>
+  </main>
+</div>
 
 </body>
 </html>

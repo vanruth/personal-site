@@ -1,40 +1,45 @@
 /* ==========================================================================
    Design tokens
-   Every colour is defined here once, in light mode, then overridden as a set
-   for dark mode. Nothing below this block hard-codes a colour.
+   Defined once in light mode, then overridden as a set for dark. Nothing
+   below this block hard-codes a colour.
    ========================================================================== */
 
 :root {
-  --bg:            #fbfbf9;
-  --bg-subtle:     #f2f2ee;
-  --text:          #1a1a18;
-  --text-muted:    #5c5c56;
-  --accent:        #2c6e5b;
-  --accent-hover:  #1f5343;
-  --border:        #e3e2dc;
+  --bg:           #fdfdfc;
+  --bg-elevated:  #f4f4f1;
+  --text:         #131316;
+  --text-muted:   #71717a;
+  --text-faint:   #a1a1aa;
+  --accent:       #2f6f5e;
+  --accent-hover: #1f5245;
+  --border:       #e7e7e3;
+  --border-hover: #d0d0ca;
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                "Helvetica Neue", Arial, sans-serif;
 
-  --measure: 42rem;     /* ~672px reading column */
-  --gutter:  1.5rem;
+  --step--2: 0.75rem;
+  --step--1: 0.8125rem;
+  --step-0:  1rem;
+  --step-1:  1.125rem;
+  --step-2:  1.5rem;
+  --step-3:  2.5rem;
 
-  --step--1: 0.875rem;
-  --step-0:  1.0625rem;
-  --step-1:  1.375rem;
-  --step-2:  1.75rem;
-  --step-3:  2.25rem;
+  --sidebar: 20rem;
+  --gutter:  1.75rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:            #121312;
-    --bg-subtle:     #1b1c1a;
-    --text:          #ececea;
-    --text-muted:    #a0a09a;
-    --accent:        #7fc9ac;
-    --accent-hover:  #a3dcc5;
-    --border:        #2b2c29;
+    --bg:           #0e0e10;
+    --bg-elevated:  #18181b;
+    --text:         #f2f2f0;
+    --text-muted:   #9b9ba3;
+    --text-faint:   #6a6a73;
+    --accent:       #6fc9a8;
+    --accent-hover: #96dcc2;
+    --border:       #26262a;
+    --border-hover: #3a3a40;
   }
 }
 
@@ -43,10 +48,7 @@
    ========================================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
-
-body, h1, h2, h3, p, ul, ol, figure, blockquote { margin: 0; }
-
-ul[class] { list-style: none; padding: 0; }
+body, h1, h2, h3, p, ul, ol, figure { margin: 0; }
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -55,7 +57,10 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { transition-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
 
 body {
@@ -63,328 +68,342 @@ body {
   color: var(--text);
   font-family: var(--font-sans);
   font-size: var(--step-0);
-  line-height: 1.65;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 img { max-width: 100%; display: block; height: auto; }
 
-/* ==========================================================================
-   Typography
-   ========================================================================== */
-
-h1, h2, h3 {
-  line-height: 1.2;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-}
-
-h1 { font-size: var(--step-3); }
-h2 { font-size: var(--step-2); }
-h3 { font-size: var(--step-1); letter-spacing: -0.01em; }
-
-p { text-wrap: pretty; }
-
-p + p { margin-top: 1rem; }
-
-a {
-  color: var(--accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-}
-
-a:hover { color: var(--accent-hover); }
+a { color: inherit; }
 
 a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
-.lede {
-  font-size: var(--step-1);
-  color: var(--text-muted);
-  line-height: 1.5;
-}
+p { text-wrap: pretty; }
+p + p { margin-top: 1.1rem; }
 
-.muted { color: var(--text-muted); }
-
-.small { font-size: var(--step--1); }
-
-/* ==========================================================================
-   Layout
-   ========================================================================== */
-
-.wrap {
-  width: 100%;
-  max-width: var(--measure);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-/* Skip link — visible only when focused via keyboard. */
 .skip-link {
   position: absolute;
   left: -9999px;
   top: 0;
+  z-index: 20;
   background: var(--accent);
   color: var(--bg);
-  padding: 0.6rem 1rem;
-  z-index: 10;
-}
-
-.skip-link:focus {
-  left: 0;
-  color: var(--bg);
-}
-
-/* ==========================================================================
-   Site header / nav
-   ========================================================================== */
-
-.site-header {
-  border-bottom: 1px solid var(--border);
-  padding-block: 1.25rem;
-}
-
-.site-header .wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  align-items: baseline;
-  justify-content: space-between;
-}
-
-.site-header__name {
-  font-weight: 650;
-  font-size: var(--step-0);
-  letter-spacing: -0.01em;
-  color: var(--text);
+  padding: 0.7rem 1.1rem;
   text-decoration: none;
 }
 
-.site-header__name:hover { color: var(--accent); }
+.skip-link:focus { left: 0; }
 
-.site-nav {
-  display: flex;
-  gap: 1.25rem;
+/* ==========================================================================
+   Two-column shell
+   Sidebar is a full-height sticky panel on desktop and a normal stacked block
+   on mobile, where sticky would eat most of a small screen.
+   ========================================================================== */
+
+.layout {
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 62rem) {
+  .layout {
+    display: grid;
+    grid-template-columns: var(--sidebar) 1fr;
+    gap: 5.5rem;
+    align-items: start;
+  }
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+
+.sidebar {
+  padding-block: 3.5rem 2rem;
+}
+
+@media (min-width: 62rem) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-block: 5.5rem 3.5rem;
+  }
+}
+
+.sidebar__name {
+  display: block;
   font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.9rem;
 }
 
-.site-nav a {
+/* Fluid size: "THINKER + BUILDER" is long enough to run off a narrow phone at
+   a fixed 2.5rem, so it scales with the viewport and is allowed to wrap as a
+   last resort on very small screens. */
+.sidebar__tagline {
+  display: block;
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  font-weight: 680;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+@media (min-width: 62rem) {
+  .sidebar__tagline { font-size: var(--step-3); }
+}
+
+.sidebar__bio {
+  margin-top: 1.4rem;
   color: var(--text-muted);
-  text-decoration: none;
+  font-size: var(--step-1);
+  line-height: 1.5;
+  max-width: 26rem;
 }
 
-.site-nav a:hover { color: var(--accent); }
+/* --- in-page nav --- */
 
-/* The current page is marked with aria-current="page" in the markup, so the
-   styling hook and the accessibility signal stay in sync. */
-.site-nav a[aria-current="page"] {
-  color: var(--text);
-  font-weight: 600;
-}
-
-/* ==========================================================================
-   Main content rhythm
-   ========================================================================== */
-
-main { padding-block: 3.5rem 4rem; }
-
-section + section { margin-top: 3.5rem; }
-
-section > h2 {
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-/* ==========================================================================
-   Hero (home page)
-   ========================================================================== */
-
-/* The <h1> carries both the name and the tagline so the page has a single
-   heading containing the name, while the tagline is what reads as the title. */
-.hero__h1 {
+.sidebar__nav {
+  margin-top: 2.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 0.85rem;
+  gap: 0.15rem;
 }
 
-.hero__name {
-  font-size: var(--step-0);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--text-muted);
-}
-
-.hero__tagline {
-  font-size: var(--step-3);
-  font-weight: 700;
+.sidebar__nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.3rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 0.01em;
-  line-height: 1.1;
+  text-decoration: none;
+  color: var(--text-faint);
+  transition: color 0.18s ease;
+  width: fit-content;
 }
 
-.hero__sub {
-  font-size: var(--step-1);
-  color: var(--text-muted);
-  line-height: 1.45;
-  max-width: 34rem;
+/* The rule grows on hover and on the active section — a small, cheap way to
+   show where you are without a heavier indicator. */
+.sidebar__nav a::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.22s ease, background-color 0.18s ease;
 }
 
-@media (min-width: 40rem) {
-  .hero__tagline { font-size: 2.75rem; }
+.sidebar__nav a:hover { color: var(--text); }
+.sidebar__nav a:hover::before { width: 2.75rem; }
+
+.sidebar__nav a.is-active {
+  color: var(--text);
+  font-weight: 550;
 }
 
-/* ==========================================================================
-   Link row (profiles / contact)
-   ========================================================================== */
+.sidebar__nav a.is-active::before { width: 2.75rem; }
 
-.link-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.75rem;
-  margin-top: 1.5rem;
-  padding: 0;
-  list-style: none;
+/* --- email --- */
+
+.sidebar__contact { margin-top: 2.75rem; }
+
+@media (min-width: 62rem) {
+  .sidebar__contact { margin-top: 0; }
 }
 
-.link-row a {
-  display: inline-block;
-  padding: 0.35rem 0.85rem;
+.email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1.1rem;
   border: 1px solid var(--border);
   border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--text);
   font-size: var(--step--1);
   text-decoration: none;
-  color: var(--text-muted);
-  background: var(--bg-subtle);
+  transition: border-color 0.18s ease, color 0.18s ease;
 }
 
-.link-row a:hover {
-  color: var(--accent);
+.email-link:hover {
   border-color: var(--accent);
+  color: var(--accent);
 }
+
+.email-link svg {
+  width: 0.85em;
+  height: 0.85em;
+  opacity: 0.55;
+  transition: transform 0.2s ease;
+}
+
+.email-link:hover svg { transform: translate(2px, -2px); }
 
 /* ==========================================================================
-   Timeline (career history)
+   Content column
    ========================================================================== */
 
-/* Dot-leader rows: organisation on the left, year on the right, joined by a
-   dotted rule that grows to fill whatever space is left. The role sits
-   underneath so long titles never break the leader alignment. */
+.content { padding-block: 1rem 4rem; }
+
+@media (min-width: 62rem) {
+  .content { padding-block: 5.5rem 8rem; }
+}
+
+.section + .section { margin-top: 5rem; }
+
+/* Anchor links land below the top edge rather than flush against it. */
+.section { scroll-margin-top: 2rem; }
+
+.section__label {
+  font-size: var(--step--2);
+  font-weight: 550;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 1.6rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.section__body {
+  font-size: var(--step-1);
+  color: var(--text-muted);
+  max-width: 38rem;
+}
+
+.section__body strong { color: var(--text); font-weight: 600; }
+
+/* ==========================================================================
+   Career rows — dot leaders
+   Organisation left, year right, joined by a dotted rule that fills whatever
+   space is left. The role sits underneath so long titles never disturb the
+   leader alignment.
+   ========================================================================== */
+
 .cv { list-style: none; padding: 0; }
 
-.cv > li + li { margin-top: 1.4rem; }
+.cv > li {
+  padding-block: 1.15rem;
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.18s ease;
+}
+
+.cv > li:first-child { padding-top: 0; }
+.cv > li:hover { border-color: var(--border-hover); }
 
 .cv__line {
   display: flex;
   align-items: baseline;
-  gap: 0.6rem;
+  gap: 0.7rem;
 }
 
 .cv__org {
   font-weight: 600;
+  font-size: var(--step-1);
   flex-shrink: 0;
+  letter-spacing: -0.01em;
 }
 
 .cv__dots {
   flex: 1 1 auto;
   min-width: 1.5rem;
-  border-bottom: 1px dotted var(--border);
-  transform: translateY(-0.3em);
+  border-bottom: 1px dotted var(--border-hover);
+  transform: translateY(-0.32em);
 }
 
 .cv__year {
   flex-shrink: 0;
-  color: var(--text-muted);
+  color: var(--text-faint);
+  font-size: var(--step--1);
   font-variant-numeric: tabular-nums;
 }
 
 .cv__role {
-  font-size: var(--step--1);
   color: var(--text-muted);
-  margin-top: 0.1rem;
+  font-size: var(--step--1);
+  margin-top: 0.2rem;
 }
 
 /* ==========================================================================
-   Projects
+   Experiments
    ========================================================================== */
 
-.project-list { list-style: none; padding: 0; }
+.experiment-list { list-style: none; padding: 0; }
 
-.project-list > li + li {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
+.experiment-list > li {
+  padding-block: 1.4rem;
+  border-bottom: 1px solid var(--border);
 }
 
-.project__title { margin-bottom: 0.15rem; }
+.experiment-list > li:first-child { padding-top: 0; }
 
-.project__title a { text-decoration: none; }
-.project__title a:hover { text-decoration: underline; }
+.experiment__title {
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.2rem;
+}
 
-.project__meta {
+.experiment__title a { text-decoration: none; }
+.experiment__title a:hover { color: var(--accent); }
+
+.experiment__meta {
   font-size: var(--step--1);
-  color: var(--text-muted);
-  margin-bottom: 0.6rem;
+  color: var(--text-faint);
+  margin-bottom: 0.5rem;
 }
 
-.project__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.75rem;
-  padding: 0;
-  list-style: none;
-  font-size: var(--step--1);
-}
-
-/* Tag pills, used for skills and project tech. */
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
   padding: 0;
-  margin-top: 0.75rem;
+  margin-top: 0.8rem;
   list-style: none;
 }
 
 .tags li {
-  font-size: var(--step--1);
+  font-size: var(--step--2);
   color: var(--text-muted);
-  background: var(--bg-subtle);
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 0.15rem 0.5rem;
+  padding: 0.15rem 0.55rem;
 }
+
+/* Inline text link, used inside prose. */
+.text-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.text-link:hover { color: var(--accent-hover); }
 
 /* ==========================================================================
    Footer
    ========================================================================== */
 
-.site-footer {
+.content__footer {
+  margin-top: 5rem;
+  padding-top: 1.75rem;
   border-top: 1px solid var(--border);
-  padding-block: 2rem 3rem;
   font-size: var(--step--1);
-  color: var(--text-muted);
-}
-
-.site-footer .wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.site-footer ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 0;
-  list-style: none;
+  color: var(--text-faint);
 }
