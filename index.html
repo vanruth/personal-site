@@ -23,6 +23,12 @@
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/style.css">
 
+<!-- Marks the page as scripted before first paint, which is what lets the CSS
+     blur inactive cards. Set here rather than at the end of the body so there
+     is no flash of un-blurred content. The scroll script at the bottom removes
+     it again if it can't run, so the page never gets stuck blurred. -->
+<script>document.documentElement.classList.add('js');</script>
+
 <!-- Structured data telling Google this page describes a person.
      NOTE: the "sameAs" array is what lets Google connect this site to your
      other profiles and treat you as a single identity. It is the strongest
@@ -62,9 +68,8 @@
     <div>
       <h1>
         <span class="sidebar__name">Ruth</span>
-        <!-- The nbsp keeps "+" with "Thinker", so the only place this can
-             break is before "Builder" — "THINKER + / BUILDER", never
-             "THINKER / + BUILDER". -->
+        <!-- The nbsp keeps "+" with "Thinker", so if this ever wraps it breaks
+             before "Builder" rather than stranding the "+" on its own line. -->
         <span class="sidebar__tagline">Thinker&nbsp;+ Builder</span>
       </h1>
 
@@ -97,13 +102,10 @@
       <h2 class="section__label" id="who-i-am-label">Who I am</h2>
       <div class="section__body">
         <p>
-          I'm Ruth, with a background in <strong>Philosophy, Politics &amp;
-          Economics with Social Data Science</strong> from UCL.
-        </p>
-        <p>
-          At my core, I'm multidisciplinary. I enjoy thinking about how
-          institutions, systems and theories work, but I also love tinkering
-          with new technologies and exploring business ideas.
+          I'm a <strong>multidisciplinarian</strong>, with a background in
+          philosophy, politics, economics and data science. I enjoy thinking
+          about how institutions, systems and theories work, but I also love
+          tinkering with new technologies and exploring business ideas.
         </p>
         <p>
           I've worked across product management and marketing, and I enjoy
@@ -176,7 +178,13 @@
 (function () {
   var links = [].slice.call(document.querySelectorAll('.sidebar__nav a'));
   var sections = [].slice.call(document.querySelectorAll('.section'));
-  if (!links.length || !sections.length) return;
+
+  // Nothing to drive the highlight with — drop back to the unblurred page
+  // rather than leaving every card soft and unreadable.
+  if (!links.length || !sections.length) {
+    document.documentElement.classList.remove('js');
+    return;
+  }
 
   var map = {};
   links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
@@ -200,9 +208,18 @@
   var ticking = false;
   function update() {
     ticking = false;
+
+    // If the page can't scroll, no card could ever be reached by scrolling to
+    // it — so sharpen all of them rather than blurring content out of reach.
+    var scrollable = document.documentElement.scrollHeight >
+                     window.innerHeight + 2;
+
     var id = currentId();
     links.forEach(function (a) { a.classList.remove('is-active'); });
     if (map[id]) map[id].classList.add('is-active');
+    sections.forEach(function (s) {
+      s.classList.toggle('is-current', !scrollable || s.id === id);
+    });
   }
 
   function schedule() {
