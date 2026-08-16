@@ -8,7 +8,9 @@
   --bg:           #fdfdfc;
   --bg-elevated:  #f4f4f1;
   --text:         #131316;
-  --text-muted:   #71717a;
+  /* Dark enough to clear AA against the resting cards, which render sharp
+     whenever the blur is off (no JS, reduced motion, or an unscrollable page). */
+  --text-muted:   #696971;
   --text-faint:   #a1a1aa;
   --accent:       #8a5638;
   --accent-hover: #6d4229;
@@ -17,10 +19,10 @@
 
   /* Cards are defined by a soft fill rather than an outline. The card you're
      reading lifts on a shadow instead of a heavier border. */
-  --card:         #f4f4f1;
-  --card-current: #f4f4f1;
-  --card-shadow:  0 1px 2px rgba(18, 18, 20, 0.04),
-                  0 10px 28px rgba(18, 18, 20, 0.06);
+  --card:         #efefea;
+  --card-current: #ffffff;
+  --card-shadow:  0 1px 2px rgba(18, 18, 20, 0.05),
+                  0 14px 36px rgba(18, 18, 20, 0.10);
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                "Helvetica Neue", Arial, sans-serif;
@@ -50,9 +52,9 @@
 
     /* Shadows don't read on a dark ground, so the current card lifts by
        getting lighter instead. */
-    --card:         #17171a;
-    --card-current: #1f1f24;
-    --card-shadow:  none;
+    --card:         #141417;
+    --card-current: #26262d;
+    --card-shadow:  0 0 0 1px rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -171,18 +173,6 @@ p + p { margin-top: 1.1rem; }
   color: var(--text);
 }
 
-/* Small, widely tracked and quiet — the shape a tagline takes. */
-.sidebar__tagline {
-  display: block;
-  margin-top: 0.55rem;
-  font-size: var(--step--1);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  line-height: 1.3;
-  color: var(--text-muted);
-}
-
 .sidebar__bio {
   margin-top: 1.6rem;
   color: var(--text-muted);
@@ -284,18 +274,22 @@ p + p { margin-top: 1.1rem; }
    middle. `--first-card-half` is measured by the script and kept in step on
    resize; the fallback covers the moment before it runs and the no-JS case, and
    `max()` stops the padding collapsing on short screens. */
+/* Every card comes to rest in the middle of the screen, level with the sidebar
+   block on the left. The padding above and below the stack is what makes that
+   possible for the first and last cards, which otherwise couldn't reach the
+   centre. Both offsets are measured by the script — they account for whatever
+   sits between the edge of the column and the card, such as the arrows — with
+   fallbacks for the moment before it runs and for the no-JS case. */
 @media (min-width: 62rem) {
   .content {
-    padding-block: max(3rem, calc(50vh - var(--first-card-half, 9.5rem))) 6rem;
+    padding-block: max(3rem, calc(50vh - var(--first-card-offset, 13rem)))
+                   max(6rem, calc(50vh - var(--last-card-offset, 13rem)));
   }
 
-  /* Jumping to the first card — via the nav or the arrow's back-to-top state —
-     should land it centred, exactly where it rests at the top of the page.
-     Matching its scroll-margin to the padding above it puts the target at
-     scroll 0 rather than 3rem above the card. */
-  .content > .section:first-child {
-    scroll-margin-top: max(3rem, calc(50vh - var(--first-card-half, 9.5rem)));
-  }
+  /* Snap is `proximity`, not `mandatory`: cards settle into the centre when a
+     scroll ends near one, without seizing control of the scroll itself. */
+  html { scroll-snap-type: y proximity; }
+  .section { scroll-snap-align: center; }
 }
 
 /* Each section is a card. The one you're reading lifts slightly — a filled
@@ -366,36 +360,42 @@ p + p { margin-top: 1.1rem; }
    script just keeps its target in step with where you are.
    ========================================================================== */
 
-.scroll-next {
+.scroll-step {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: none;
   width: 2.75rem;
   height: 2.75rem;
-  margin: 2rem auto 0;
   border: none;
   border-radius: 50%;
   background: var(--card);
   color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
-.scroll-next:hover {
+.scroll-prev { margin: 0 auto 1.25rem; }
+.scroll-next { margin: 1.25rem auto 0; }
+
+.scroll-step:hover {
   color: var(--accent);
-  transform: translateY(2px);
+  background: var(--card-current);
 }
 
-.scroll-next svg {
+.scroll-prev:hover { transform: translateY(-2px); }
+.scroll-next:hover { transform: translateY(2px); }
+
+.scroll-step svg {
   width: 1.05rem;
   height: 1.05rem;
-  transition: transform 0.35s ease;
 }
 
-/* On the last card the arrow flips and sends you back to the top. */
-.scroll-next.is-up svg { transform: rotate(180deg); }
-.scroll-next.is-up:hover { transform: translateY(-2px); }
+/* Kept in the layout rather than removed, so the cards don't jump when an
+   arrow runs out of somewhere to go. */
+.scroll-step.is-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
 
 @media (min-width: 62rem) {
   .section { padding: 2rem 2.1rem 2.15rem; }

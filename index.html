@@ -6,17 +6,17 @@
 
 <!-- PLACEHOLDER: replace every "YOURNAME.netlify.app" once Netlify is
      connected — one find-and-replace across the repo. -->
-<title>Ruth — Thinker + Builder</title>
+<title>Ruth — Thinking across technology, business and society</title>
 <meta name="description" content="Ruth — UCL Philosophy, Politics &amp; Economics with Social Data Science graduate, thinking across technology, business and society and building along the way.">
 
 <link rel="canonical" href="https://YOURNAME.netlify.app/">
 
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Ruth — Thinker + Builder">
+<meta property="og:title" content="Ruth — Thinking across technology, business and society">
 <meta property="og:description" content="Thinking across technology, business and society; building along the way.">
 <meta property="og:url" content="https://YOURNAME.netlify.app/">
 <meta property="og:image" content="https://YOURNAME.netlify.app/img/og-image.jpg">
-<meta property="og:image:alt" content="Ruth — Thinker + Builder">
+<meta property="og:image:alt" content="Ruth">
 <meta property="og:site_name" content="Ruth">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -66,12 +66,7 @@
   <!-- ===== Sidebar: sticky on desktop, stacked on mobile ===== -->
   <header class="sidebar">
     <div>
-      <h1>
-        <span class="sidebar__name">Ruth</span>
-        <!-- The nbsp keeps "+" with "Thinker", so if this ever wraps it breaks
-             before "Builder" rather than stranding the "+" on its own line. -->
-        <span class="sidebar__tagline">Thinker&nbsp;+ Builder</span>
-      </h1>
+      <h1 class="sidebar__name">Ruth</h1>
 
       <p class="sidebar__bio">
         <span class="bio-key">Thinking</span> across technology, business and
@@ -98,6 +93,15 @@
 
   <!-- ===== Scrolling content ===== -->
   <main class="content" id="main">
+
+    <a class="scroll-step scroll-prev is-hidden" href="#who-i-am"
+       aria-label="Previous section">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+      </svg>
+    </a>
 
     <section class="section" id="who-i-am" aria-labelledby="who-i-am-label">
       <h2 class="section__label" id="who-i-am-label">Who I am</h2>
@@ -166,7 +170,7 @@
       </div>
     </section>
 
-    <a class="scroll-next" href="#career" aria-label="Next section">
+    <a class="scroll-step scroll-next" href="#career" aria-label="Next section">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
            aria-hidden="true">
@@ -195,7 +199,9 @@
     return;
   }
 
-  var arrow = document.querySelector('.scroll-next');
+  var content = document.querySelector('.content');
+  var prevArrow = document.querySelector('.scroll-prev');
+  var nextArrow = document.querySelector('.scroll-next');
 
   var map = {};
   links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
@@ -235,13 +241,17 @@
       s.classList.toggle('is-current', !scrollable || s.id === id);
     });
 
-    // Point the arrow at whatever comes next; on the last card it turns round
-    // and goes back to the top.
-    if (arrow) {
-      var last = index === sections.length - 1;
-      arrow.setAttribute('href', '#' + (last ? sections[0].id : sections[index + 1].id));
-      arrow.classList.toggle('is-up', last);
-      arrow.setAttribute('aria-label', last ? 'Back to top' : 'Next section');
+    // Each arrow points one card away from wherever you are, and hides itself
+    // when there is nothing in that direction.
+    if (prevArrow) {
+      var hasPrev = index > 0;
+      prevArrow.classList.toggle('is-hidden', !hasPrev);
+      if (hasPrev) prevArrow.setAttribute('href', '#' + sections[index - 1].id);
+    }
+    if (nextArrow) {
+      var hasNext = index < sections.length - 1;
+      nextArrow.classList.toggle('is-hidden', !hasNext);
+      if (hasNext) nextArrow.setAttribute('href', '#' + sections[index + 1].id);
     }
   }
 
@@ -251,22 +261,80 @@
     window.requestAnimationFrame(update);
   }
 
-  // Feeds the first card's real height to the CSS that centres it, so the
-  // centring stays correct when the copy is edited or the window resized.
-  function measureFirstCard() {
-    var h = sections[0].getBoundingClientRect().height;
-    document.documentElement.style.setProperty(
-      '--first-card-half', (h / 2) + 'px'
-    );
+  // Distance from each end of the content column's inner box to the centre of
+  // the card at that end. Measured rather than assumed, so it stays right when
+  // the copy is edited, and so it already accounts for the arrows sitting
+  // between the column edge and the outermost cards. Because the padding it
+  // feeds shifts the column and the card by the same amount, these values are
+  // stable — reading them back doesn't move them.
+  function measureEnds() {
+    var cs = window.getComputedStyle(content);
+    var box = content.getBoundingClientRect();
+    var innerTop = box.top + parseFloat(cs.paddingTop);
+    var innerBottom = box.bottom - parseFloat(cs.paddingBottom);
+
+    var first = sections[0].getBoundingClientRect();
+    var last = sections[sections.length - 1].getBoundingClientRect();
+
+    var style = document.documentElement.style;
+    style.setProperty('--first-card-offset',
+      (first.top + first.height / 2 - innerTop) + 'px');
+    style.setProperty('--last-card-offset',
+      (innerBottom - (last.top + last.height / 2)) + 'px');
+  }
+
+  // An anchor normally lands a card's top near the top of the screen. Giving
+  // each card a scroll-margin of half the leftover space instead lands it in
+  // the middle, level with the sidebar. Doing it this way means the browser's
+  // own anchor handling does the scrolling, so the arrows and nav links keep
+  // working even if scripted scrolling is unavailable — there is no click
+  // handler to fail. Cleared below the breakpoint, where cards simply stack.
+  var wide = window.matchMedia('(min-width: 62rem)');
+
+  function setScrollMargins() {
+    sections.forEach(function (s) {
+      if (!wide.matches) { s.style.scrollMarginTop = ''; return; }
+      var leftover = (window.innerHeight - s.getBoundingClientRect().height) / 2;
+      s.style.scrollMarginTop = Math.max(24, leftover) + 'px';
+    });
+  }
+
+  // Belt and braces. The scroll-margins above already centre a card when the
+  // browser follows an anchor, but following an anchor whose href matches the
+  // URL's current hash is a no-op — click "next", then click it again before
+  // the hrefs refresh, and nothing would move. Scrolling explicitly here side-
+  // steps that. If this handler can't do its job it leaves the click alone and
+  // the anchor behaves normally.
+  function centreOn(hash) {
+    if (!hash || hash.charAt(0) !== '#') return false;
+    var el = document.getElementById(hash.slice(1));
+    if (!el || typeof el.scrollIntoView !== 'function') return false;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return true;
+  }
+
+  links.concat([prevArrow, nextArrow]).forEach(function (el) {
+    if (!el) return;
+    el.addEventListener('click', function (e) {
+      var href = this.getAttribute('href');
+      if (!centreOn(href)) return;
+      e.preventDefault();
+      if (window.history && history.replaceState) {
+        history.replaceState(null, '', href);
+      }
+    });
+  });
+
+  function remeasure() {
+    measureEnds();
+    setScrollMargins();
+    schedule();
   }
 
   window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', function () {
-    measureFirstCard();
-    schedule();
-  });
+  window.addEventListener('resize', remeasure);
 
-  measureFirstCard();
+  remeasure();
   update();
 })();
 </script>
