@@ -74,7 +74,8 @@
       </h1>
 
       <p class="sidebar__bio">
-        Thinking across technology, business and society; building along the way.
+        <span class="bio-key">Thinking</span> across technology, business and
+        society; <span class="bio-key">building</span> along the way.
       </p>
 
       <nav class="sidebar__nav" aria-label="Sections">
@@ -165,6 +166,14 @@
       </div>
     </section>
 
+    <a class="scroll-next" href="#career" aria-label="Next section">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </a>
+
     <footer class="content__footer">
       <p>© 2026 Ruth</p>
     </footer>
@@ -185,6 +194,8 @@
     document.documentElement.classList.remove('js');
     return;
   }
+
+  var arrow = document.querySelector('.scroll-next');
 
   var map = {};
   links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
@@ -217,9 +228,21 @@
     var id = currentId();
     links.forEach(function (a) { a.classList.remove('is-active'); });
     if (map[id]) map[id].classList.add('is-active');
-    sections.forEach(function (s) {
+
+    var index = 0;
+    sections.forEach(function (s, i) {
+      if (s.id === id) index = i;
       s.classList.toggle('is-current', !scrollable || s.id === id);
     });
+
+    // Point the arrow at whatever comes next; on the last card it turns round
+    // and goes back to the top.
+    if (arrow) {
+      var last = index === sections.length - 1;
+      arrow.setAttribute('href', '#' + (last ? sections[0].id : sections[index + 1].id));
+      arrow.classList.toggle('is-up', last);
+      arrow.setAttribute('aria-label', last ? 'Back to top' : 'Next section');
+    }
   }
 
   function schedule() {
