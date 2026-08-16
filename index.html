@@ -251,8 +251,22 @@
     window.requestAnimationFrame(update);
   }
 
+  // Feeds the first card's real height to the CSS that centres it, so the
+  // centring stays correct when the copy is edited or the window resized.
+  function measureFirstCard() {
+    var h = sections[0].getBoundingClientRect().height;
+    document.documentElement.style.setProperty(
+      '--first-card-half', (h / 2) + 'px'
+    );
+  }
+
   window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule);
+  window.addEventListener('resize', function () {
+    measureFirstCard();
+    schedule();
+  });
+
+  measureFirstCard();
   update();
 })();
 </script>

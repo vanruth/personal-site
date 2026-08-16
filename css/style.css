@@ -266,13 +266,22 @@ p + p { margin-top: 1.1rem; }
 
 .content { padding-block: 1rem 4rem; }
 
+/* The first card sits centred in the viewport at rest. The top padding is half
+   a viewport minus half the card, so the card's own middle lands on the screen's
+   middle. `--first-card-half` is measured by the script and kept in step on
+   resize; the fallback covers the moment before it runs and the no-JS case, and
+   `max()` stops the padding collapsing on short screens. */
 @media (min-width: 62rem) {
   .content {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: safe center;
-    padding-block: 3rem;
+    padding-block: max(3rem, calc(50vh - var(--first-card-half, 9.5rem))) 6rem;
+  }
+
+  /* Jumping to the first card — via the nav or the arrow's back-to-top state —
+     should land it centred, exactly where it rests at the top of the page.
+     Matching its scroll-margin to the padding above it puts the target at
+     scroll 0 rather than 3rem above the card. */
+  .content > .section:first-child {
+    scroll-margin-top: max(3rem, calc(50vh - var(--first-card-half, 9.5rem)));
   }
 }
 
@@ -291,9 +300,6 @@ p + p { margin-top: 1.1rem; }
 
 .section + .section { margin-top: 1.1rem; }
 
-/* The content column is a centred flex column, so cards must keep their
-   natural height rather than shrinking to fit. */
-.section, .content__footer { flex: none; }
 
 .section.is-current {
   background: var(--bg-elevated);
