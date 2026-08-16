@@ -130,6 +130,10 @@ p + p { margin-top: 1.1rem; }
   padding-block: 3.5rem 2rem;
 }
 
+/* The sidebar block sits vertically centred in the viewport. `safe center`
+   falls back to top-aligned if the block ever grows taller than the screen,
+   which plain `center` would push off the top edge with no way to scroll to
+   it. Browsers without `safe` drop the declaration and top-align too. */
 @media (min-width: 62rem) {
   .sidebar {
     position: sticky;
@@ -137,8 +141,8 @@ p + p { margin-top: 1.1rem; }
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding-block: 5.5rem 3.5rem;
+    justify-content: safe center;
+    padding-block: 3rem;
   }
 }
 
@@ -184,7 +188,7 @@ p + p { margin-top: 1.1rem; }
 /* --- in-page nav --- */
 
 .sidebar__nav {
-  margin-top: 2.75rem;
+  margin-top: 2.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
@@ -226,11 +230,7 @@ p + p { margin-top: 1.1rem; }
 
 /* --- email --- */
 
-.sidebar__contact { margin-top: 2.75rem; }
-
-@media (min-width: 62rem) {
-  .sidebar__contact { margin-top: 0; }
-}
+.sidebar__contact { margin-top: 1.75rem; }
 
 .email-link {
   display: inline-flex;
@@ -267,7 +267,13 @@ p + p { margin-top: 1.1rem; }
 .content { padding-block: 1rem 4rem; }
 
 @media (min-width: 62rem) {
-  .content { padding-block: 5.5rem 8rem; }
+  .content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
+    padding-block: 3rem;
+  }
 }
 
 /* Each section is a card. The one you're reading lifts slightly — a filled
@@ -284,6 +290,10 @@ p + p { margin-top: 1.1rem; }
 }
 
 .section + .section { margin-top: 1.1rem; }
+
+/* The content column is a centred flex column, so cards must keep their
+   natural height rather than shrinking to fit. */
+.section, .content__footer { flex: none; }
 
 .section.is-current {
   background: var(--bg-elevated);
@@ -338,15 +348,13 @@ p + p { margin-top: 1.1rem; }
    ========================================================================== */
 
 .scroll-next {
-  position: sticky;
-  bottom: 1.5rem;
-  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: none;
   width: 2.75rem;
   height: 2.75rem;
-  margin: 1.5rem auto 0;
+  margin: 2rem auto 0;
   border: 1px solid var(--border);
   border-radius: 50%;
   background: var(--bg-elevated);
@@ -507,7 +515,7 @@ p + p { margin-top: 1.1rem; }
    ========================================================================== */
 
 .content__footer {
-  margin-top: 5rem;
+  margin-top: 3rem;
   padding-top: 1.75rem;
   border-top: 1px solid var(--border);
   font-size: var(--step--1);
