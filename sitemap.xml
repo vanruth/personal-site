@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-maintained. /experiments is deliberately absent: it has no content
+     yet and is marked noindex. Add its <url> block here once it does. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://YOURNAME.netlify.app/</loc>
+    <lastmod>2026-08-16</lastmod>
+    <priority>1.0</priority>
+  </url>
+</urlset>

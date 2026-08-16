@@ -1,0 +1,7 @@
+.DS_Store
+._*
+.netlify/
+Thumbs.db
+
+# Local Claude Code permission settings — machine-specific.
+.claude/settings.local.json
