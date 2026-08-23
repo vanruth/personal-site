@@ -38,17 +38,12 @@ Everything else lives in `netlify.toml`.
 
 ## Before launch
 
-Replace `YOURNAME.netlify.app` with the real host once Netlify is connected.
-It appears in canonical tags, OG tags, the JSON-LD block, `sitemap.xml`, and
-`robots.txt`:
+The real host (`ruthvan.netlify.app`) is already in canonical tags, OG tags,
+the JSON-LD block, `sitemap.xml`, and `robots.txt`.
 
-```bash
-grep -rn "YOURNAME.netlify.app" --include=*.html --include=*.xml --include=*.txt .
-```
-
-Also still to add: `img/og-image.jpg`, 1200×630, used for link previews in
-social posts and chat apps. Every page's `<head>` already points at it, so the
-file just needs to exist.
+Still to add: `img/og-image.jpg`, 1200×630, used for link previews in social
+posts and chat apps. Every page's `<head>` already points at it, so the file
+just needs to exist.
 
 ## Adding your first experiment
 
@@ -93,4 +88,4 @@ months.
 
 1. Add the domain in Netlify under *Domain management*.
 2. Point the registrar's nameservers at Netlify; SSL is automatic.
-3. Find-and-replace `YOURNAME.netlify.app` with the new domain, then push.
+3. Find-and-replace `ruthvan.netlify.app` with the new domain, then push.

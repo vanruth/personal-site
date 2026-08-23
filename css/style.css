@@ -345,8 +345,16 @@ p + p { margin-top: 1.1rem; }
   }
 
   /* Snap is `proximity`, not `mandatory`: cards settle into the centre when a
-     scroll ends near one, without seizing control of the scroll itself. */
-  html { scroll-snap-type: y proximity; }
+     scroll ends near one, without seizing control of the scroll itself.
+     scroll-padding-top reserves the masthead's height from the browser's own
+     snap math — without it, native snapping centres each card against the
+     *whole* viewport (it has no idea the masthead is pinned over part of it),
+     which disagrees with the scroll-margin-based centring below and fights
+     it, producing a visible extra jump after every scroll. */
+  html {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: var(--masthead-h, 17rem);
+  }
   .section { scroll-snap-align: center; }
 }
 

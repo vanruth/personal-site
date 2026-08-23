@@ -4,18 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- PLACEHOLDER: replace every "YOURNAME.netlify.app" once Netlify is
-     connected — one find-and-replace across the repo. -->
 <title>Ruth — Thinking across technology, business and society</title>
 <meta name="description" content="Ruth — UCL Philosophy, Politics &amp; Economics with Social Data Science graduate, thinking across technology, business and society and building along the way.">
 
-<link rel="canonical" href="https://YOURNAME.netlify.app/">
+<link rel="canonical" href="https://ruthvan.netlify.app/">
 
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Ruth — Thinking across technology, business and society">
 <meta property="og:description" content="Thinking across technology, business and society; building along the way.">
-<meta property="og:url" content="https://YOURNAME.netlify.app/">
-<meta property="og:image" content="https://YOURNAME.netlify.app/img/og-image.jpg">
+<meta property="og:url" content="https://ruthvan.netlify.app/">
+<meta property="og:image" content="https://ruthvan.netlify.app/img/og-image.jpg">
 <meta property="og:image:alt" content="Ruth">
 <meta property="og:site_name" content="Ruth">
 <meta name="twitter:card" content="summary_large_image">
@@ -40,7 +38,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ruth",
-  "url": "https://YOURNAME.netlify.app/",
+  "url": "https://ruthvan.netlify.app/",
   "description": "Multidisciplinary thinker and builder working across technology, business and society. Background in Philosophy, Politics & Economics with Social Data Science from UCL, with experience in product management and marketing.",
   "alumniOf": {
     "@type": "CollegeOrUniversity",
@@ -345,14 +343,14 @@
   // header too high — far enough to tuck a tall one underneath it. Scrolling to
   // the card's own scroll-margin instead uses the figure that already accounts
   // for the header, so clicking and anchoring agree on where a card belongs.
-  function centreOn(hash) {
+  function centreOn(hash, instant) {
     if (!hash || hash.charAt(0) !== '#') return false;
     var el = document.getElementById(hash.slice(1));
     if (!el || typeof window.scrollTo !== 'function') return false;
     var margin = parseFloat(el.style.scrollMarginTop) ||
                  parseFloat(window.getComputedStyle(el).scrollMarginTop) || 0;
     var top = el.getBoundingClientRect().top + window.pageYOffset - margin;
-    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    window.scrollTo({ top: Math.max(0, top), behavior: instant ? 'auto' : 'smooth' });
     return true;
   }
 
@@ -379,6 +377,18 @@
 
   remeasure();
   update();
+
+  // A link straight to a section (e.g. shared as /#experience, or browser
+  // back/forward) makes the browser jump there during initial layout, before
+  // remeasure() above has real numbers to work with — it lands using the CSS
+  // fallbacks, off-centre. Now that the real scroll-margins are set, correct
+  // it without animating: this is a load-time fix-up, not a scroll the
+  // visitor asked for. Below the breakpoint there's no fixed masthead to
+  // account for, so the browser's own jump is already correct.
+  if (wide.matches && location.hash) {
+    centreOn(location.hash, true);
+    update();
+  }
 })();
 </script>
 
