@@ -102,20 +102,22 @@
         <span class="bio-key">Thinking</span> across technology, business and
         society; <span class="bio-key">building</span> along the way.
       </p>
+      <div class="masthead__contact">
+        <a class="email-link" href="mailto:vanruth123@gmail.com">
+          vanruth123@gmail.com
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor"
+               stroke-width="1.75" aria-hidden="true">
+            <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10"/>
+          </svg>
+        </a>
+      </div>
     </div>
 
     <div class="masthead__aside">
-      <a class="email-link" href="mailto:vanruth123@gmail.com">
-        vanruth123@gmail.com
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor"
-             stroke-width="1.75" aria-hidden="true">
-          <path d="M4.5 11.5L11.5 4.5M6 4.5h5.5V10"/>
-        </svg>
-      </a>
-
       <nav class="masthead__nav" aria-label="Sections">
         <a href="#who-i-am">Who I am</a>
-        <a href="#career">Career history</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
         <a href="#experiments">Experiments</a>
       </nav>
     </div>
@@ -149,40 +151,30 @@
     </div>
   </section>
 
-  <section class="section" id="career" aria-labelledby="career-label">
-    <h2 class="section__label" id="career-label">Career history</h2>
+  <section class="section" id="experience" aria-labelledby="experience-label">
+    <h2 class="section__label" id="experience-label">Experience</h2>
     <ol class="cv">
       <li>
-        <div class="cv__line">
-          <span class="cv__org">Tradeweb</span>
-          <span class="cv__dots" aria-hidden="true"></span>
-          <span class="cv__year">2024</span>
-        </div>
-        <p class="cv__role">Product management intern</p>
+        <span class="cv__what"><span class="cv__org">Tradeweb</span>, Product management intern</span>
+        <span class="cv__year">2024</span>
       </li>
       <li>
-        <div class="cv__line">
-          <span class="cv__org">Hatch</span>
-          <span class="cv__dots" aria-hidden="true"></span>
-          <span class="cv__year">2023</span>
-        </div>
-        <p class="cv__role">Marketing intern</p>
+        <span class="cv__what"><span class="cv__org">Hatch</span>, Marketing intern</span>
+        <span class="cv__year">2023</span>
       </li>
       <li>
-        <div class="cv__line">
-          <span class="cv__org">MFA Singapore</span>
-          <span class="cv__dots" aria-hidden="true"></span>
-          <span class="cv__year">2022</span>
-        </div>
-        <p class="cv__role">Information services assistant</p>
+        <span class="cv__what"><span class="cv__org">MFA Singapore</span>, Information services assistant</span>
+        <span class="cv__year">2022</span>
       </li>
+    </ol>
+  </section>
+
+  <section class="section" id="education" aria-labelledby="education-label">
+    <h2 class="section__label" id="education-label">Education</h2>
+    <ol class="cv">
       <li>
-        <div class="cv__line">
-          <span class="cv__org">UCL</span>
-          <span class="cv__dots" aria-hidden="true"></span>
-          <span class="cv__year">2022–25</span>
-        </div>
-        <p class="cv__role">BSc Philosophy, Politics &amp; Economics with Social Data Science</p>
+        <span class="cv__what"><span class="cv__org">UCL</span>, BSc Philosophy, Politics &amp; Economics with Social Data Science</span>
+        <span class="cv__year">2022–25</span>
       </li>
     </ol>
   </section>
@@ -200,7 +192,7 @@
     </div>
   </section>
 
-  <a class="scroll-step scroll-next" href="#career" aria-label="Next section">
+  <a class="scroll-step scroll-next" href="#experience" aria-label="Next section">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
          aria-hidden="true">
@@ -348,11 +340,19 @@
   // the hrefs refresh, and nothing would move. Scrolling explicitly here side-
   // steps that. If this handler can't do its job it leaves the click alone and
   // the anchor behaves normally.
+  // scrollIntoView({block:'center'}) centres against the whole viewport and
+  // knows nothing about the pinned masthead, so it lands a card roughly half a
+  // header too high — far enough to tuck a tall one underneath it. Scrolling to
+  // the card's own scroll-margin instead uses the figure that already accounts
+  // for the header, so clicking and anchoring agree on where a card belongs.
   function centreOn(hash) {
     if (!hash || hash.charAt(0) !== '#') return false;
     var el = document.getElementById(hash.slice(1));
-    if (!el || typeof el.scrollIntoView !== 'function') return false;
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!el || typeof window.scrollTo !== 'function') return false;
+    var margin = parseFloat(el.style.scrollMarginTop) ||
+                 parseFloat(window.getComputedStyle(el).scrollMarginTop) || 0;
+    var top = el.getBoundingClientRect().top + window.pageYOffset - margin;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     return true;
   }
 

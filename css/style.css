@@ -210,11 +210,12 @@ p + p { margin-top: 1.1rem; }
    content and pushes the column out of the page. */
 .masthead__lead { min-width: 0; }
 
+.masthead__contact { margin-top: 1.25rem; }
+
 .masthead__aside {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
 }
 
 .masthead__name {
@@ -458,60 +459,39 @@ p + p { margin-top: 1.1rem; }
 }
 
 /* ==========================================================================
-   Career rows — dot leaders
-   Organisation left, year right, joined by a dotted rule that fills whatever
-   space is left. The role sits underneath so long titles never disturb the
-   leader alignment.
+   Experience & education rows
+   What on the left, when on the right, a rule under each. The row wraps onto
+   two lines on narrow screens rather than crushing the year against the title.
    ========================================================================== */
 
 .cv { list-style: none; padding: 0; }
 
 .cv > li {
-  padding-block: 1.15rem;
-  border-bottom: 1px solid var(--border);
-  transition: border-color 0.18s ease;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.15rem 1.5rem;
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--border-hover);
 }
 
 .cv > li:first-child { padding-top: 0; }
-.cv > li:hover { border-color: var(--border-hover); }
 
-/* No trailing rule against the bottom edge of the card. */
-.cv > li:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+.cv__what {
+  min-width: 0;
+  font-size: var(--step-0);
+  color: var(--text);
 }
 
-.cv__line {
-  display: flex;
-  align-items: baseline;
-  gap: 0.7rem;
-}
-
-.cv__org {
-  font-weight: 600;
-  font-size: var(--step-1);
-  flex-shrink: 0;
-  letter-spacing: -0.01em;
-}
-
-.cv__dots {
-  flex: 1 1 auto;
-  min-width: 1.5rem;
-  border-bottom: 1px dotted var(--border-hover);
-  transform: translateY(-0.32em);
-}
+.cv__org { font-weight: 600; }
 
 .cv__year {
   flex-shrink: 0;
-  color: var(--text-faint);
-  font-size: var(--step--1);
-  font-variant-numeric: tabular-nums;
-}
-
-.cv__role {
   color: var(--text-muted);
   font-size: var(--step--1);
-  margin-top: 0.2rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* ==========================================================================
