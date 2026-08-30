@@ -11,7 +11,10 @@
   /* Dark enough to clear AA against the resting cards, which render sharp
      whenever the blur is off (no JS, reduced motion, or an unscrollable page). */
   --text-muted:   #696971;
-  --text-faint:   #8e8e97;
+  /* Darkened from #8e8e97 — that measured 2.66:1 on --bg and 2.39:1 on
+     --card, well under the 4.5:1 AA minimum for the small nav/label/footer
+     text it's used on. This clears 4.5:1 against both. */
+  --text-faint:   #585861;
   --accent:       #8a5638;
   --accent-hover: #6d4229;
   --border:       #e7e7e3;
@@ -46,7 +49,9 @@
     --bg-elevated:  #18181b;
     --text:         #f2f2f0;
     --text-muted:   #9b9ba3;
-    --text-faint:   #74747d;
+    /* #74747d measured 4.69:1 on --bg but only 4.32:1 on --card — just under
+       AA. Lightened slightly to clear 4.5:1 against both. */
+    --text-faint:   #7e7e87;
     --accent:       #cf9f7c;
     --accent-hover: #e2b795;
     --border:       #26262a;
@@ -330,13 +335,15 @@ p + p { margin-top: 1.1rem; }
    knowable in CSS; the fallbacks cover the no-JS case. */
 @media (min-width: 62rem) {
   .content {
-    /* Clear the masthead, then add whatever it takes to sit the first card in
-       the middle of the strip below it — the same place every other card comes
-       to rest. The max() keeps a sensible gap if a card is ever taller than
-       the strip, when centring is impossible. */
+    /* Clear the masthead, then add centring padding — but capped. Perfectly
+       centring the first card in the strip below the masthead left ~40% of a
+       typical 900px viewport as dead whitespace above it; min() now caps how
+       far it's allowed to drift from the masthead, so the card sits close
+       under it instead of floating mid-screen on tall viewports. The max()
+       still keeps a sensible floor if a card is ever taller than the strip. */
     padding-top: calc(var(--masthead-h, 17rem)
-                      + max(2.5rem, (100vh - var(--masthead-h, 17rem)) / 2
-                                    - var(--first-card-offset, 13rem)));
+                      + min(4rem, max(2.5rem, (100vh - var(--masthead-h, 17rem)) / 2
+                                    - var(--first-card-offset, 13rem))));
     /* The floor is only a backstop for when the exact figure goes small or
        negative — a tall last card, a short window. Keeping it low lets the
        exact value win in the ordinary case and land the card dead centre. */
