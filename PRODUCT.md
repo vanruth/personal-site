@@ -69,13 +69,28 @@ it. Not a destination people browse deeply or return to often.
   strongest available signal for Google to connect the site to a single
   identity. Do not add profile links without asking again.
 - **No headshot or photo** anywhere on the site. Explicit choice.
-- Accent color is a warm brown (`#8a5638` light / `#cf9f7c` dark) — chosen
-  over blue or green specifically for warmth against the site's neutral
-  palette. Not a placeholder; don't revert to a generic blue/green accent.
-- Body copy runs on the system font stack (`-apple-system, ...`) — no
-  webfonts — as a deliberate performance and simplicity choice. (One narrow,
-  reverted exception: a Google Font was tried for accent labels during a
-  since-abandoned redesign and is not part of the current site.)
+- **Visual identity is "editorial + tech + handwritten"** (superseded the
+  original brown-accent/system-font-only identity below on explicit request).
+  Editorial leads; tech and handwritten are accents on top, not equal thirds:
+  - **Editorial**: Libre Caslon Text (incl. italic) carries body copy and
+    headings — chosen specifically to avoid the "AI-default" serif cluster
+    (Fraunces/Playfair/Lora/Cormorant/Newsreader) and the "warm cream +
+    high-contrast serif + terracotta" look those defaults tend to produce.
+  - **Tech**: JetBrains Mono labels section running heads (`§ 01`, etc.), the
+    nav, career-history years, and metadata — real data/structure, not
+    decoration.
+  - **Handwritten**: Caveat, used only for small marginal annotation notes
+    beside the section currently in focus (desktop, ≥78rem, where there's
+    real margin to hold them) and a hand-drawn underline SVG on the tagline's
+    two key verbs. Never used for headings or body copy.
+  - Accent is now a ballpoint-blue ink color (`#1f4a94` light / `#89aee6`
+    dark) — deliberately not brown, not terracotta, not a warm cream+serif
+    combination, to sit outside the common AI-generated-interface palette
+    clusters. The previous brown accent (`#8a5638` / `#cf9f7c`) and the
+    system-font-only rule are both **superseded**, not standing constraints —
+    don't revert to either without asking again.
+  - Sections are bound by a hairline rule, not a filled card — a deliberate
+    anti-pattern avoidance (don't wrap everything in card chrome).
 - Only contact channel listed is a single email (`vanruth123@gmail.com`). No
   phone, no other social channels, by choice.
 

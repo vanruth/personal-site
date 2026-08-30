@@ -19,6 +19,16 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+
+<!-- Three deliberate exceptions to what was previously a system-fonts-only
+     site: an editorial serif carries the page, a mono face labels sections
+     like lab-notebook metadata, and a handwritten face marks the current
+     section in the margin. Recorded in PRODUCT.md as an updated brand
+     commitment, not a silent drift. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,700&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="/css/style.css">
 
 <!-- Marks the page as scripted before first paint, which is what lets the CSS
@@ -134,7 +144,8 @@
   </a>
 
   <section class="section" id="who-i-am" aria-labelledby="who-i-am-label">
-    <h2 class="section__label" id="who-i-am-label">Who I am</h2>
+    <span class="section__note" aria-hidden="true">the short version</span>
+    <h2 class="section__label" id="who-i-am-label" data-index="§ 01">Who I am</h2>
     <div class="section__body">
       <p>
         I'm a <strong>multidisciplinarian</strong>, with a background in
@@ -150,7 +161,8 @@
   </section>
 
   <section class="section" id="experience" aria-labelledby="experience-label">
-    <h2 class="section__label" id="experience-label">Experience</h2>
+    <span class="section__note" aria-hidden="true">still growing</span>
+    <h2 class="section__label" id="experience-label" data-index="§ 02">Experience</h2>
     <ol class="cv">
       <li>
         <span class="cv__what"><span class="cv__org">Tradeweb</span>, Product management intern</span>
@@ -168,7 +180,8 @@
   </section>
 
   <section class="section" id="education" aria-labelledby="education-label">
-    <h2 class="section__label" id="education-label">Education</h2>
+    <span class="section__note" aria-hidden="true">the foundation</span>
+    <h2 class="section__label" id="education-label" data-index="§ 03">Education</h2>
     <ol class="cv">
       <li>
         <span class="cv__what"><span class="cv__org">UCL</span>, BSc Philosophy, Politics &amp; Economics with Social Data Science</span>
@@ -178,7 +191,8 @@
   </section>
 
   <section class="section" id="experiments" aria-labelledby="experiments-label">
-    <h2 class="section__label" id="experiments-label">Experiments</h2>
+    <span class="section__note" aria-hidden="true">watch this space</span>
+    <h2 class="section__label" id="experiments-label" data-index="§ 04">Experiments</h2>
     <div class="section__body">
       <p>
         Small digital products and side projects — things I build to find out

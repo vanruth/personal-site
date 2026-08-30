@@ -1,42 +1,40 @@
 /* ==========================================================================
-   Design tokens
-   Defined once in light mode, then overridden as a set for dark. Nothing
-   below this block hard-codes a colour.
+   Design direction — editorial + tech + handwritten
+   A marked-up manuscript: clean printed serif carries the page (editorial),
+   small mono "running heads" number and label each section like lab-notebook
+   metadata (tech), and a handwritten ink accent — underlines, circles, a
+   margin note on whatever you're reading — sits on top like real pen marks
+   (handwritten). Nothing here is a filled "card"; sections are bound by a
+   hairline rule, not a box, on purpose.
+
+   Design tokens defined once in light mode, then overridden as a set for
+   dark. Nothing below this block hard-codes a colour.
    ========================================================================== */
 
 :root {
-  --bg:           #fdfdfc;
-  --bg-elevated:  #f4f4f1;
-  --text:         #131316;
-  /* Dark enough to clear AA against the resting cards, which render sharp
-     whenever the blur is off (no JS, reduced motion, or an unscrollable page). */
-  --text-muted:   #696971;
-  /* Darkened from #8e8e97 — that measured 2.66:1 on --bg and 2.39:1 on
-     --card, well under the 4.5:1 AA minimum for the small nav/label/footer
-     text it's used on. This clears 4.5:1 against both. */
-  --text-faint:   #585861;
-  --accent:       #8a5638;
-  --accent-hover: #6d4229;
-  --border:       #e7e7e3;
-  --border-hover: #d0d0ca;
+  --bg:           #f7f6f2;   /* paper */
+  --bg-elevated:  #efeee8;
+  --text:         #1a1a17;   /* ink */
+  --text-muted:   #55534c;
+  --text-faint:   #605e56;
+  --accent:       #1f4a94;   /* ballpoint blue */
+  --accent-hover: #16356b;
+  --rule:         #ddd9d0;
+  --rule-strong:  #c7c2b6;
 
-  /* Cards are defined by a soft fill rather than an outline. The card being
-     read goes white and lifts, so it reads clearly against the blurred rest. */
-  --card:         #efefea;
-  --card-current: #ffffff;
-  --card-shadow:  0 1px 2px rgba(18, 18, 20, 0.05),
-                  0 14px 36px rgba(18, 18, 20, 0.10);
+  --decor:        #1f4a94;
+  --decor-alpha:  0.22;
 
-  --decor:        #8a5638;
-  --decor-alpha:  0.16;
-
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-               "Helvetica Neue", Arial, sans-serif;
+  /* Editorial leads; mono and hand are accents layered on top, never the
+     voice for body copy. */
+  --font-serif: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-hand:  "Caveat", "Segoe Script", cursive;
 
   --step--2: 0.75rem;
   --step--1: 0.8125rem;
-  --step-0:  1rem;
-  --step-1:  1.125rem;
+  --step-0:  1.0625rem;
+  --step-1:  1.1875rem;
   --step-2:  1.5rem;
 
   --measure: 47rem;
@@ -45,26 +43,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:           #0e0e10;
-    --bg-elevated:  #18181b;
-    --text:         #f2f2f0;
-    --text-muted:   #9b9ba3;
-    /* #74747d measured 4.69:1 on --bg but only 4.32:1 on --card — just under
-       AA. Lightened slightly to clear 4.5:1 against both. */
-    --text-faint:   #7e7e87;
-    --accent:       #cf9f7c;
-    --accent-hover: #e2b795;
-    --border:       #26262a;
-    --border-hover: #3a3a40;
+    --bg:           #131210;   /* ink-well */
+    --bg-elevated:  #1b1a17;
+    --text:         #f0efe9;   /* paper, inverted */
+    --text-muted:   #a3a196;
+    --text-faint:   #979589;
+    --accent:       #89aee6;   /* lightened ballpoint blue */
+    --accent-hover: #a8c4ee;
+    --rule:         #2c2a26;
+    --rule-strong:  #3d3a34;
 
-    /* Shadows don't read on a dark ground, so the current card lifts by
-       getting lighter instead. */
-    --card:         #141417;
-    --card-current: #26262d;
-    --card-shadow:  0 0 0 1px rgba(255, 255, 255, 0.06);
-
-    --decor:        #cf9f7c;
-    --decor-alpha:  0.14;
+    --decor:        #89aee6;
+    --decor-alpha:  0.18;
   }
 }
 
@@ -91,11 +81,15 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: var(--step-0);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* A very faint paper grain — an SVG turbulence filter, no image request,
+     kept subtle enough to sit well under the AA-checked text colours above
+     rather than compete with them. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
 }
 
 img { max-width: 100%; display: block; height: auto; }
@@ -104,7 +98,7 @@ a { color: inherit; }
 a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
 p { text-wrap: pretty; }
@@ -118,16 +112,18 @@ p + p { margin-top: 1.1rem; }
   background: var(--accent);
   color: var(--bg);
   padding: 0.7rem 1.1rem;
+  font-family: var(--font-mono);
   text-decoration: none;
 }
 
 .skip-link:focus { left: 0; }
 
 /* ==========================================================================
-   Decorative background
-   Squiggles, asterisks and marks scattered behind the content so the margins
-   aren't bare. Fixed, so they sit still while the cards travel over them.
-   Purely ornamental: aria-hidden in the markup and inert to the pointer.
+   Decorative marginalia
+   The same squiggles, asterisks and marks as before, recoloured to the
+   ballpoint-blue ink — pen doodles in the margin of a printed page, not
+   generic background ornament. Fixed, so they sit still while the sections
+   travel past them. Purely ornamental: aria-hidden and pointer-inert.
    ========================================================================== */
 
 .decor {
@@ -152,8 +148,6 @@ p + p { margin-top: 1.1rem; }
 .decor__e { bottom: 18%; left: 6%; width: 38px; }
 .decor__f { bottom: 9%;  right: 8%; width: 52px; }
 
-/* Below the breakpoint the margins are too narrow to hold ornament without
-   crowding the text, so most of it steps aside. */
 @media (max-width: 61.99rem) {
   .decor__a, .decor__c, .decor__d { display: none; }
   .decor__b { top: 3%; right: 4%; width: 34px; }
@@ -175,7 +169,8 @@ p + p { margin-top: 1.1rem; }
 }
 
 /* ==========================================================================
-   Masthead — name, bio, then contact and nav side by side
+   Masthead — literally: a newspaper's nameplate, set big and tracked in the
+   editorial serif, with the nav and metadata in mono underneath it.
    ========================================================================== */
 
 .masthead {
@@ -183,9 +178,6 @@ p + p { margin-top: 1.1rem; }
   background: var(--bg);
 }
 
-/* Pinned to the top of the screen so that scrolling only ever moves the cards.
-   It stays in normal flow below the breakpoint, where a fixed block this tall
-   would swallow most of a phone screen. */
 @media (min-width: 62rem) {
   .masthead {
     position: fixed;
@@ -197,7 +189,6 @@ p + p { margin-top: 1.1rem; }
   }
 }
 
-/* Name and bio on one side, contact and section nav on the other. */
 .masthead__inner {
   display: grid;
   gap: 2rem;
@@ -211,8 +202,6 @@ p + p { margin-top: 1.1rem; }
   }
 }
 
-/* Grid items default to min-width:auto, which refuses to shrink below their
-   content and pushes the column out of the page. */
 .masthead__lead { min-width: 0; }
 
 .masthead__contact { margin-top: 1.25rem; }
@@ -224,19 +213,17 @@ p + p { margin-top: 1.1rem; }
 }
 
 .masthead__name {
-  font-size: clamp(1.6rem, 4.5vw, 2rem);
-  font-weight: 750;
-  text-transform: uppercase;
-  letter-spacing: 0.045em;
-  line-height: 1.1;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  line-height: 1;
   color: var(--text);
 }
 
-/* `balance` evens out the line lengths rather than filling each line and
-   leaving a short one behind, so the bio reads as a tidy block. The max-width
-   keeps it to the two or three lines that balancing works well across. */
 .masthead__bio {
-  margin-top: 0.9rem;
+  margin-top: 0.75rem;
   max-width: 25rem;
   font-size: var(--step-0);
   line-height: 1.6;
@@ -244,30 +231,43 @@ p + p { margin-top: 1.1rem; }
   text-wrap: balance;
 }
 
-/* "Thinking" and "building" — the two verbs the whole site is about — sit
-   darker and heavier than the words around them. */
+/* "Thinking" and "building" get a hand-drawn underline instead of extra
+   weight — an annotation mark, not a font-weight trick. */
 .bio-key {
   color: var(--text);
   font-weight: 600;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='10' viewBox='0 0 120 10'%3E%3Cpath d='M2 6c15-5 25-5 35 0s25 5 35 0 25-5 35 0' fill='none' stroke='%231f4a94' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 0.4em;
+  padding-bottom: 0.15em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bio-key {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='10' viewBox='0 0 120 10'%3E%3Cpath d='M2 6c15-5 25-5 35 0s25 5 35 0 25-5 35 0' fill='none' stroke='%2389aee6' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
 }
 
 .email-link {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.6rem 1.1rem;
-  border: none;
-  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
   background: var(--bg-elevated);
   color: var(--text);
-  font-size: var(--step--1);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.01em;
   text-decoration: none;
-  transition: color 0.18s ease, background-color 0.18s ease;
+  transition: color 0.18s ease, border-color 0.18s ease;
 }
 
 .email-link:hover {
   color: var(--accent);
-  background: var(--card-current);
+  border-color: var(--accent);
 }
 
 .email-link svg {
@@ -282,44 +282,39 @@ p + p { margin-top: 1.1rem; }
 .masthead__nav {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
 }
 
 .masthead__nav a {
   display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
+  align-items: baseline;
+  gap: 0.65rem;
   width: fit-content;
-  padding-block: 0.3rem;
-  font-size: var(--step--1);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  padding-block: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.04em;
   text-decoration: none;
   color: var(--text-faint);
   transition: color 0.18s ease;
 }
 
-/* The rule grows on hover and on the section being read — a small, cheap way
-   to show where you are without a heavier indicator. */
 .masthead__nav a::before {
-  content: "";
-  width: 1.5rem;
-  height: 1px;
-  background: currentColor;
-  transition: width 0.22s ease;
+  content: "//";
+  color: var(--rule-strong);
+  transition: color 0.18s ease;
 }
 
 .masthead__nav a:hover { color: var(--text); }
-.masthead__nav a:hover::before { width: 2.75rem; }
 
 .masthead__nav a.is-active,
 .masthead__nav a[aria-current="page"] {
-  color: var(--text);
-  font-weight: 550;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .masthead__nav a.is-active::before,
-.masthead__nav a[aria-current="page"]::before { width: 2.75rem; }
+.masthead__nav a[aria-current="page"]::before { color: var(--accent); }
 
 /* ==========================================================================
    Content column
@@ -327,37 +322,15 @@ p + p { margin-top: 1.1rem; }
 
 .content { padding-bottom: 4rem; }
 
-/* With the masthead pinned, the cards live in the strip of screen below it.
-   Clearing its height keeps the first card from starting underneath it, and
-   the room below the stack lets the last card still reach the middle of that
-   strip. Both the masthead's height and the distance from the column's bottom
-   edge to the last card's centre are measured by the script, since neither is
-   knowable in CSS; the fallbacks cover the no-JS case. */
 @media (min-width: 62rem) {
   .content {
-    /* Clear the masthead, then add centring padding — but capped. Perfectly
-       centring the first card in the strip below the masthead left ~40% of a
-       typical 900px viewport as dead whitespace above it; min() now caps how
-       far it's allowed to drift from the masthead, so the card sits close
-       under it instead of floating mid-screen on tall viewports. The max()
-       still keeps a sensible floor if a card is ever taller than the strip. */
     padding-top: calc(var(--masthead-h, 17rem)
                       + min(4rem, max(2.5rem, (100vh - var(--masthead-h, 17rem)) / 2
                                     - var(--first-card-offset, 13rem))));
-    /* The floor is only a backstop for when the exact figure goes small or
-       negative — a tall last card, a short window. Keeping it low lets the
-       exact value win in the ordinary case and land the card dead centre. */
     padding-bottom: max(2rem, calc((100vh - var(--masthead-h, 17rem)) / 2
                                    - var(--last-card-offset, 10rem)));
   }
 
-  /* Snap is `proximity`, not `mandatory`: cards settle into the centre when a
-     scroll ends near one, without seizing control of the scroll itself.
-     scroll-padding-top reserves the masthead's height from the browser's own
-     snap math — without it, native snapping centres each card against the
-     *whole* viewport (it has no idea the masthead is pinned over part of it),
-     which disagrees with the scroll-margin-based centring below and fights
-     it, producing a visible extra jump after every scroll. */
   html {
     scroll-snap-type: y proximity;
     scroll-padding-top: var(--masthead-h, 17rem);
@@ -365,30 +338,24 @@ p + p { margin-top: 1.1rem; }
   .section { scroll-snap-align: center; }
 }
 
+/* No fill, no box — a section is bound by a hairline rule the way a page in
+   a manuscript is bound by its running head, not by a card shell. */
 .section {
-  padding: 1.75rem 1.8rem 1.9rem;
-  border: none;
-  border-radius: 20px;
-  background: var(--card);
+  position: relative;
+  padding: 1.5rem 0 1.9rem;
+  border-top: 1px solid var(--rule);
   scroll-margin-top: 1.5rem;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
-.section + .section { margin-top: 1.25rem; }
+.section + .section { margin-top: 1.5rem; }
 
-.section.is-current {
-  background: var(--card-current);
-  box-shadow: var(--card-shadow);
-}
+.section.is-current { border-top-color: var(--accent); }
 
-/* Cards you aren't reading go soft, so the page pulls you down through it.
-   Scoped to `.js` — set by a script in the <head> — so that without
-   JavaScript nothing is ever blurred and the page stays fully readable. */
 .js .section {
   filter: blur(3px);
-  opacity: 0.45;
-  transition: filter 0.35s ease, opacity 0.35s ease,
-              background-color 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0.5;
+  transition: filter 0.35s ease, opacity 0.35s ease, border-color 0.3s ease;
 }
 
 .js .section.is-current {
@@ -396,26 +363,63 @@ p + p { margin-top: 1.1rem; }
   opacity: 1;
 }
 
-/* Blur hides content, so anyone who has asked for reduced motion — often for
-   exactly this kind of effect — gets the plain version. */
 @media (prefers-reduced-motion: reduce) {
   .js .section { filter: none; opacity: 1; }
 }
 
+/* The running head — "§ 01 — WHO I AM" — a lab-notebook-style label in mono,
+   the tech accent, doubling as the section number a printed page would carry. */
 .section__label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
   font-size: var(--step--2);
-  font-weight: 550;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: var(--text-faint);
-  margin-bottom: 1.3rem;
+  margin-bottom: 1.25rem;
+  transition: color 0.3s ease;
+}
+
+.section__label::before {
+  content: attr(data-index);
+  color: var(--rule-strong);
   transition: color 0.3s ease;
 }
 
 .section.is-current .section__label { color: var(--accent); }
+.section.is-current .section__label::before { color: var(--accent); }
+
+/* A small handwritten marginal note beside the section being read — visible
+   only where there's real margin to hold it. Purely decorative (aria-hidden),
+   so it carries no information a screen reader would otherwise miss. */
+.section__note {
+  display: none;
+}
+
+@media (min-width: 78rem) {
+  .section__note {
+    display: block;
+    position: absolute;
+    top: 1.6rem;
+    left: -6.5rem;
+    width: 5.5rem;
+    font-family: var(--font-hand);
+    font-size: 1.35rem;
+    line-height: 1.15;
+    color: var(--accent);
+    opacity: 0;
+    transform: rotate(-3deg);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .section.is-current .section__note { opacity: 0.85; }
+}
 
 .section__body {
   font-size: var(--step-1);
+  line-height: 1.75;
   color: var(--text-muted);
   max-width: 42rem;
 }
@@ -423,34 +427,29 @@ p + p { margin-top: 1.1rem; }
 .section__body strong { color: var(--text); font-weight: 600; }
 
 .page-title {
+  font-family: var(--font-serif);
+  font-style: italic;
   font-size: var(--step-2);
   font-weight: 700;
-  letter-spacing: -0.02em;
   margin-bottom: 1.4rem;
-}
-
-@media (min-width: 62rem) {
-  .section { padding: 2rem 2.1rem 2.15rem; }
 }
 
 /* ==========================================================================
    Scroll-through arrows
-   One above the stack and one below. Real anchors, so they still work without
-   JavaScript; the script keeps their targets in step and centres the landing.
    ========================================================================== */
 
 .scroll-step {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--rule);
   border-radius: 50%;
-  background: var(--card);
+  background: var(--bg);
   color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .scroll-prev { margin: 0 auto 1.25rem; }
@@ -458,16 +457,14 @@ p + p { margin-top: 1.1rem; }
 
 .scroll-step:hover {
   color: var(--accent);
-  background: var(--card-current);
+  border-color: var(--accent);
 }
 
 .scroll-prev:hover { transform: translateY(-2px); }
 .scroll-next:hover { transform: translateY(2px); }
 
-.scroll-step svg { width: 1.05rem; height: 1.05rem; }
+.scroll-step svg { width: 1rem; height: 1rem; }
 
-/* Kept in the layout rather than removed, so the cards don't jump when an
-   arrow runs out of somewhere to go. */
 .scroll-step.is-hidden {
   visibility: hidden;
   pointer-events: none;
@@ -475,8 +472,8 @@ p + p { margin-top: 1.1rem; }
 
 /* ==========================================================================
    Experience & education rows
-   What on the left, when on the right, a rule under each. The row wraps onto
-   two lines on narrow screens rather than crushing the year against the title.
+   Org in serif bold, role in serif regular, year in tabular mono — the one
+   place the "tech" register earns its keep on real data rather than decor.
    ========================================================================== */
 
 .cv { list-style: none; padding: 0; }
@@ -487,11 +484,12 @@ p + p { margin-top: 1.1rem; }
   align-items: baseline;
   justify-content: space-between;
   gap: 0.15rem 1.5rem;
-  padding-block: 0.8rem;
-  border-bottom: 1px solid var(--border-hover);
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 .cv > li:first-child { padding-top: 0; }
+.cv > li:last-child { border-bottom: none; padding-bottom: 0; }
 
 .cv__what {
   min-width: 0;
@@ -499,12 +497,13 @@ p + p { margin-top: 1.1rem; }
   color: var(--text);
 }
 
-.cv__org { font-weight: 600; }
+.cv__org { font-weight: 700; }
 
 .cv__year {
   flex-shrink: 0;
+  font-family: var(--font-mono);
   color: var(--text-muted);
-  font-size: var(--step--1);
+  font-size: var(--step--2);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -517,7 +516,7 @@ p + p { margin-top: 1.1rem; }
 
 .experiment-list > li {
   padding-block: 1.4rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--rule);
 }
 
 .experiment-list > li:first-child { padding-top: 0; }
@@ -528,9 +527,9 @@ p + p { margin-top: 1.1rem; }
 }
 
 .experiment__title {
+  font-family: var(--font-serif);
   font-size: var(--step-1);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 700;
   margin-bottom: 0.2rem;
 }
 
@@ -538,13 +537,12 @@ p + p { margin-top: 1.1rem; }
 .experiment__title a:hover { color: var(--accent); }
 
 .experiment__meta {
-  font-size: var(--step--1);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
   color: var(--text-faint);
   margin-bottom: 0.5rem;
 }
 
-/* Sits on a filled card, so the page background is what reads as a chip here —
-   var(--bg-elevated) would be the same colour as the card behind it. */
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -555,15 +553,15 @@ p + p { margin-top: 1.1rem; }
 }
 
 .tags li {
-  font-size: var(--step--2);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   color: var(--text-muted);
-  background: var(--bg);
-  border: none;
-  border-radius: 6px;
-  padding: 0.2rem 0.6rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.15rem 0.5rem;
 }
 
-/* Inline text link, used inside prose. */
 .text-link {
   color: var(--accent);
   text-decoration: underline;
@@ -580,7 +578,8 @@ p + p { margin-top: 1.1rem; }
 .content__footer {
   margin-top: 3rem;
   padding-top: 1.75rem;
-  border-top: 1px solid var(--border);
-  font-size: var(--step--1);
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
   color: var(--text-faint);
 }
