@@ -1,33 +1,39 @@
 /* ==========================================================================
-   Design direction — tech + handwritten, editorial in the details
-   A single scrolling page: floating mono nav, a handwritten greeting and
-   "contact me" close, mono body copy and data (career years, project
-   metadata) throughout. Paper background with a woven linen texture.
+   Recreated from a Figma design (figma.com/design/EFHezz15epD0friES2o9TS,
+   node 157:8) — a single scrolling page: floating mono nav, a handwritten
+   greeting and "contact me" close (La Belle Aurore), mono body copy and
+   data throughout (IBM Plex Mono), a warm taupe accent, and a linen-paper
+   background.
+
+   One deliberate departure from the source: the accent colour as specified
+   (#a48670) measured 2.72:1 against the page background — well under the
+   4.5:1 AA minimum even accounting for large-text's 3:1 allowance. Darkened
+   to #7d5738 (4.80:1) / #d1b596 in dark mode, same hue, passes cleanly.
 
    Design tokens defined once in light mode, then overridden as a set for
    dark. Nothing below this block hard-codes a colour.
    ========================================================================== */
 
 :root {
-  --bg:           #f7f6f2;   /* paper */
-  --bg-elevated:  #efeee8;
+  --bg:           #fcfbf7;   /* paper */
+  --bg-elevated:  #f0f1eb;   /* tinted section band (Projects / Contact) */
   --bg-card:      #ffffff;
-  --text:         #1a1a17;   /* ink */
+  --text:         #131211;   /* near-black ink */
   --text-muted:   #55534c;
   --text-faint:   #605e56;
-  --accent:       #1f4a94;   /* ballpoint blue */
-  --accent-hover: #16356b;
+  --accent:       #7d5738;   /* warm taupe — darkened from the source #a48670 for AA */
+  --accent-hover: #5f4029;
   --rule:         #ddd9d0;
   --rule-strong:  #c7c2b6;
 
-  --decor:        #1f4a94;
+  --decor:        #7d5738;
   --decor-alpha:  0.22;
 
-  /* Mono carries almost everything — nav, body, data, project cards.
-     Handwritten is reserved for three moments only: the wordmark, the hero
-     greeting, and "contact me". Nothing here is a filled editorial serif. */
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --font-hand: "Caveat", "Segoe Script", cursive;
+  /* Mono carries nearly everything — nav, body, project/career data.
+     Handwritten (La Belle Aurore) is reserved for exactly three moments:
+     the wordmark, the hero greeting, and "contact me". */
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-hand: "La Belle Aurore", "Segoe Script", cursive;
 
   --step--2: 0.75rem;
   --step--1: 0.8125rem;
@@ -35,14 +41,14 @@
   --step-1:  1.0625rem;
   --step-2:  1.375rem;
 
-  --measure: 64rem;
+  --measure: 68rem;
   --gutter:  1.75rem;
 
-  /* Four soft card tints for the project grid, cycled in source order. */
-  --tint-1: #eee8f7;
-  --tint-2: #e1eef2;
-  --tint-3: #e9e6f8;
-  --tint-4: #e4f1ea;
+  /* The four project-card mockup tints, exactly as specified in the design. */
+  --tint-1: #f2ebf3;
+  --tint-2: #cfe7eb;
+  --tint-3: #eceff8;
+  --tint-4: #d4e4e9;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -53,18 +59,18 @@
     --text:         #f0efe9;   /* paper, inverted */
     --text-muted:   #a3a196;
     --text-faint:   #979589;
-    --accent:       #89aee6;   /* lightened ballpoint blue */
-    --accent-hover: #a8c4ee;
+    --accent:       #d1b596;   /* lightened taupe */
+    --accent-hover: #e2c8ab;
     --rule:         #2c2a26;
     --rule-strong:  #3d3a34;
 
-    --decor:        #89aee6;
+    --decor:        #d1b596;
     --decor-alpha:  0.18;
 
-    --tint-1: #211f2c;
-    --tint-2: #1a2429;
-    --tint-3: #201f2e;
-    --tint-4: #1b2620;
+    --tint-1: #241f26;
+    --tint-2: #162427;
+    --tint-3: #1b1e2c;
+    --tint-4: #182427;
   }
 }
 
@@ -96,10 +102,6 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Linen paper: a fine woven crosshatch (two diagonal repeating-linear-
-     gradients) layered under a faint fractal-noise grain — both CSS-only,
-     no image request, and kept subtle enough to sit well under the
-     AA-checked text colours above rather than compete with them. */
   background-image:
     repeating-linear-gradient(45deg,  rgba(0,0,0,0.025) 0 1px, transparent 1px 3px),
     repeating-linear-gradient(-45deg, rgba(0,0,0,0.02)  0 1px, transparent 1px 3px),
@@ -142,8 +144,7 @@ p + p { margin-top: 1.1rem; }
 .skip-link:focus { left: 0; }
 
 /* ==========================================================================
-   Decorative marginalia — pen doodles in the margin, fixed so they sit still
-   while the page scrolls past them. Purely ornamental.
+   Decorative marginalia
    ========================================================================== */
 
 .decor {
@@ -189,10 +190,7 @@ p + p { margin-top: 1.1rem; }
 }
 
 /* ==========================================================================
-   Floating nav — pinned to the top with real margin around it, a soft
-   elevated bar rather than flush chrome. Wordmark in the handwritten face
-   (the one place besides the hero greeting and "contact me" it's allowed),
-   links in mono with an underline that grows in on hover.
+   Floating nav
    ========================================================================== */
 
 .nav-spacer { height: 5.5rem; }
@@ -252,10 +250,7 @@ p + p { margin-top: 1.1rem; }
   transition: right 0.22s ease;
 }
 
-.floating-nav__links a:hover {
-  color: var(--text);
-}
-
+.floating-nav__links a:hover { color: var(--text); }
 .floating-nav__links a:hover::after { right: 0; }
 
 .floating-nav__sep {
@@ -302,34 +297,28 @@ p + p { margin-top: 1.1rem; }
   color: var(--text-muted);
 }
 
+/* A plain white photo mat, straight (not tilted) — matches the source. */
 .hero__photo-frame {
   justify-self: center;
-  width: min(100%, 18rem);
-  padding: 0.6rem 0.6rem 1.4rem;
+  width: min(100%, 17rem);
+  padding: 0.75rem;
   background: var(--bg-card);
   border: 1px solid var(--rule);
   box-shadow: 0 2px 4px rgba(18,18,18,0.05), 0 20px 40px rgba(18,18,18,0.10);
-  transform: rotate(-1.5deg);
-  transition: transform 0.3s ease;
 }
-
-.hero__photo-frame:hover { transform: rotate(0deg); }
 
 .hero__photo-frame img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 5.6;
   object-fit: cover;
   background: var(--bg-elevated);
 }
-
-/* Shown only until a real photo is supplied — see img/headshot-placeholder.svg. */
-.hero__photo-frame img[data-placeholder] { object-fit: contain; padding: 2rem; }
 
 /* ==========================================================================
    Section scaffolding shared by Projects / About / Contact
    ========================================================================== */
 
-.section { padding-block: 3rem; scroll-margin-top: 6rem; }
+.section { padding-block: 3.5rem; scroll-margin-top: 6rem; }
 .section--tinted { background: var(--bg-elevated); }
 
 .eyebrow {
@@ -341,20 +330,20 @@ p + p { margin-top: 1.1rem; }
 
 .section__heading {
   font-size: var(--step-2);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
   max-width: 34rem;
 }
 
+.section__heading--light { font-weight: 300; max-width: 48rem; }
+
 .section__heading .accent {
   color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.25em;
 }
 
 /* ==========================================================================
-   Projects
+   Projects — each card is a small fake "laptop screenshot": a browser-chrome
+   mockup with skeleton content, floating on a tinted background.
    ========================================================================== */
 
 .project-grid {
@@ -375,61 +364,116 @@ p + p { margin-top: 1.1rem; }
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* The hover ask: cards move slightly, not dramatically. */
 .project-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 2px 4px rgba(18,18,18,0.05), 0 18px 32px rgba(18,18,18,0.12);
 }
 
 .project-card__mock {
-  position: relative;
-  padding: 1.5rem;
-  min-height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.25rem 1.5rem;
 }
 
-.project-card:nth-child(4n+1) .project-card__mock { background: var(--tint-1); }
-.project-card:nth-child(4n+2) .project-card__mock { background: var(--tint-2); }
-.project-card:nth-child(4n+3) .project-card__mock { background: var(--tint-3); }
-.project-card:nth-child(4n+4) .project-card__mock { background: var(--tint-4); }
+.project-card:nth-child(1) .project-card__mock { background: var(--tint-1); }
+.project-card:nth-child(2) .project-card__mock { background: var(--tint-2); }
+.project-card:nth-child(3) .project-card__mock { background: var(--tint-3); }
+.project-card:nth-child(4) .project-card__mock { background: var(--tint-4); }
 
-/* An abstract skeleton-UI mark, not a screenshot claim — generic bars
-   standing in for a product's UI, the way a wireframe icon would. */
+/* The laptop-screenshot mockup: browser chrome + skeleton content + a
+   keyboard bar. An abstract stand-in for a real screenshot, not a claim of
+   one — the same convention as a wireframe icon. */
 .mock-window {
+  width: 100%;
+  max-width: 21.5rem;
   background: var(--bg-card);
-  border-radius: 10px;
-  padding: 0.85rem;
-  box-shadow: 0 8px 20px rgba(18,18,18,0.10);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.07);
+  overflow: hidden;
 }
+
+.mock-window__screen {
+  background: #f8f7f4;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.mock-window__panel {
+  background: var(--bg-card);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.mock-window__panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.mock-window__bars { display: flex; flex-direction: column; gap: 0.35rem; }
+.mock-window__bars + .mock-window__bars { margin-top: 0.5rem; }
 
 .mock-window__bar {
+  height: 0.375rem;
+  border-radius: 3px;
+  background: #e5e7eb;
+}
+
+.mock-window__bar--strong { background: #d1d5db; }
+.mock-window__bar--w60 { width: 60%; }
+.mock-window__bar--w70 { width: 70%; }
+.mock-window__bar--w80 { width: 80%; }
+.mock-window__bar--w100 { width: 100%; }
+
+.mock-window__chip {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  color: #6b7280;
+  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+  white-space: nowrap;
+}
+
+.mock-window__panel + .mock-window__panel { margin-top: 0.5rem; }
+
+.mock-window__keyboard {
+  background: #f3f4f6;
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+}
+
+.mock-window__key {
+  flex: 1;
   height: 0.5rem;
   border-radius: 3px;
-  background: var(--rule);
+  background: #d1d5db;
 }
 
-.mock-window__bar + .mock-window__bar { margin-top: 0.5rem; }
-.mock-window__bar--w60 { width: 60%; }
-.mock-window__bar--w40 { width: 40%; }
-.mock-window__bar--w80 { width: 80%; }
-
-.project-card__badge {
-  position: absolute;
-  top: 0.85rem;
-  right: 0.85rem;
-  font-size: var(--step--2);
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: var(--bg-card);
-  color: var(--text-muted);
-  box-shadow: 0 4px 10px rgba(18,18,18,0.08);
+.mock-window__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
 }
 
-.project-card__body { padding: 1.25rem 1.5rem 1.5rem; }
+.mock-window__topbar img { height: 0.5rem; width: auto; }
+
+.project-card__body { padding: 1.5rem 1.75rem 1.75rem; }
 
 .project-card__title {
   font-size: var(--step-1);
-  font-weight: 600;
-  margin-bottom: 0.4rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
 .project-card__desc {
@@ -442,7 +486,7 @@ p + p { margin-top: 1.1rem; }
    About
    ========================================================================== */
 
-.cv { list-style: none; padding: 0; margin-top: 2.25rem; }
+.cv { list-style: none; padding: 0; margin-top: 2.25rem; border-top: 1px solid var(--rule); }
 
 .cv > li {
   display: flex;
@@ -454,31 +498,18 @@ p + p { margin-top: 1.1rem; }
   font-size: var(--step--1);
 }
 
-.cv > li:first-child { padding-top: 0; }
-.cv > li:last-child { border-bottom: none; padding-bottom: 0; }
+.cv__year { flex-shrink: 0; width: 3.25rem; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.cv__org { flex: 1 1 14rem; min-width: 0; color: var(--text); }
+.cv__role { flex-shrink: 0; margin-left: auto; color: var(--text); text-align: right; }
 
-.cv__year {
-  flex-shrink: 0;
-  width: 3.25rem;
-  color: var(--text-faint);
-  font-variant-numeric: tabular-nums;
-}
-
-.cv__org { flex: 1 1 14rem; min-width: 0; font-weight: 600; color: var(--text); }
-
-.cv__role {
-  flex-shrink: 0;
-  margin-left: auto;
-  color: var(--text-muted);
-  text-align: right;
-}
-
+/* No top border here — the .cv list's last row already supplies the rule
+   directly above this paragraph; adding another would double it up. */
 .about__body {
   margin-top: 2.25rem;
-  max-width: 42rem;
-  font-size: var(--step-0);
-  line-height: 1.85;
-  color: var(--text-muted);
+  max-width: 62rem;
+  font-size: var(--step--1);
+  line-height: 1.7;
+  color: var(--text);
 }
 
 /* ==========================================================================
@@ -489,7 +520,7 @@ p + p { margin-top: 1.1rem; }
 
 .contact__heading {
   font-family: var(--font-hand);
-  font-size: clamp(2.75rem, 7vw, 4rem);
+  font-size: clamp(3.25rem, 9vw, 5.5rem);
   line-height: 1.05;
   color: var(--text);
 }
@@ -497,49 +528,63 @@ p + p { margin-top: 1.1rem; }
 .contact__body {
   margin: 1.25rem auto 0;
   max-width: 26rem;
-  color: var(--text-muted);
+  color: var(--text);
 }
 
+/* The source specifies a literal black border here rather than the muted
+   --rule tone used elsewhere — kept as-is, it's a deliberate stronger accent
+   around the one clearly interactive cluster on the page. */
 .contact__links {
   margin-top: 2rem;
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
+  gap: 2.5rem;
+  padding: 0.85rem 1.5rem;
   border-radius: 999px;
-  background: var(--bg-card);
-  border: 1px solid var(--rule);
+  background: rgba(255,255,255,0.86);
+  border: 1px solid var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .contact__links { background: rgba(30,29,26,0.86); }
 }
 
 .pill-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1.1rem;
-  border-radius: 999px;
+  gap: 0.6rem;
   font-size: var(--step--1);
-  text-decoration: none;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
   color: var(--text);
-  transition: color 0.18s ease, background-color 0.18s ease;
+  transition: color 0.18s ease;
 }
 
-.pill-link:hover {
-  color: var(--accent);
-  background: var(--bg-elevated);
-}
-
-.pill-link svg { width: 0.95em; height: 0.95em; opacity: 0.6; }
+.pill-link:hover { color: var(--accent); }
+.pill-link svg { width: 1em; height: 1em; }
 
 /* ==========================================================================
    Footer
    ========================================================================== */
 
 .site-footer {
-  padding-block: 2rem 3rem;
-  text-align: center;
-  font-size: var(--step--2);
-  color: var(--text-faint);
+  padding: 1.5rem var(--gutter) 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: var(--step--1);
+  color: var(--text);
+}
+
+/* Deliberately inert — visual placeholders only, not real pages yet. */
+.site-footer__placeholder {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: default;
 }
 
 /* ==========================================================================

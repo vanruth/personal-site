@@ -28,16 +28,11 @@
      the hero greeting, and "contact me". Recorded in PRODUCT.md. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&family=La+Belle+Aurore&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="/css/style.css">
 
-<!-- Structured data telling Google this page describes a person.
-     NOTE: the "sameAs" array is what lets Google connect this site to your
-     other profiles and treat you as a single identity — currently absent by
-     choice. When you're ready, add:
-       "sameAs": ["https://www.linkedin.com/in/...", "https://github.com/..."],
-     and add a surname to "name" — a first name alone is very hard to rank. -->
+<!-- Structured data telling Google this page describes a person. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -55,6 +50,7 @@
     "@type": "Organization",
     "name": "Standard Chartered (SC Ventures)"
   },
+  "sameAs": ["https://www.linkedin.com/in/ruth-van/"],
   "knowsAbout": [
     "Philosophy, Politics and Economics",
     "Social Data Science",
@@ -76,27 +72,21 @@
        stroke-width="2.5" stroke-linecap="round">
     <path d="M2 12c6-11 12-11 18 0s12 11 18 0 12-11 18 0 12 11 18 0 12-11 18 0"/>
   </svg>
-
   <svg class="decor__b" viewBox="0 0 40 40" fill="none" stroke="currentColor"
        stroke-width="3" stroke-linecap="round">
     <path d="M20 4v32M6.2 12l27.6 16M33.8 12L6.2 28"/>
   </svg>
-
-  <svg class="decor__c" viewBox="0 0 40 40" fill="none" stroke="currentColor"
-       stroke-width="2.5">
+  <svg class="decor__c" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.5">
     <circle cx="20" cy="20" r="16"/>
   </svg>
-
   <svg class="decor__d" viewBox="0 0 120 24" fill="none" stroke="currentColor"
        stroke-width="2.5" stroke-linecap="round">
     <path d="M2 12c6 11 12 11 18 0s12-11 18 0 12 11 18 0 12-11 18 0 12 11 18 0"/>
   </svg>
-
   <svg class="decor__e" viewBox="0 0 40 40" fill="none" stroke="currentColor"
        stroke-width="3" stroke-linecap="round">
     <path d="M20 6v28M6 20h28"/>
   </svg>
-
   <svg class="decor__f" viewBox="0 0 40 40" fill="none" stroke="currentColor"
        stroke-width="3" stroke-linecap="round">
     <path d="M20 4v32M6.2 12l27.6 16M33.8 12L6.2 28"/>
@@ -123,32 +113,54 @@
       <h1 class="hero__greeting">hey! i'm ruth</h1>
       <p class="hero__bio">
         i'm a multidisciplinarian with a background in political science,
-        economics &amp; data science. i enjoy thinking and building across
-        tech, finance and policy, and currently work in innovation.
+        economics &amp; data science.
+      </p>
+      <p class="hero__bio">
+        i enjoy thinking and building across tech, finance and policy, and
+        currently work in innovation.
       </p>
     </div>
 
     <div class="hero__photo-frame">
-      <!-- PLACEHOLDER: swap for a real photo once supplied — see
-           img/headshot-placeholder.svg. Update alt text to "Ruth" (drop the
-           "photo not yet added" wording) when the real file is in. -->
-      <img src="/img/headshot-placeholder.svg" data-placeholder
-           alt="Photo of Ruth — not yet added" width="400" height="500">
+      <img src="/img/headshot.png" alt="Ruth" width="890" height="1268">
     </div>
   </section>
 
-  <section class="section" id="projects" aria-labelledby="projects-label">
+  <section class="section section--tinted" id="projects" aria-labelledby="projects-label">
     <div class="wrap">
       <p class="eyebrow">PROJECTS</p>
-      <h2 class="section__heading" id="projects-label">Experimenting across domains</h2>
+      <h2 class="section__heading" id="projects-label">Experimenting across<br>domains</h2>
 
       <ul class="project-grid">
         <li class="project-card">
           <div class="project-card__mock">
             <div class="mock-window">
-              <div class="mock-window__bar mock-window__bar--w60"></div>
-              <div class="mock-window__bar mock-window__bar--w80"></div>
-              <div class="mock-window__bar mock-window__bar--w40"></div>
+              <div class="mock-window__screen">
+                <div class="mock-window__panel">
+                  <div class="mock-window__topbar">
+                    <img src="/img/mock-tabs.svg" alt="" width="40" height="8">
+                    <img src="/img/mock-browser-controls.svg" alt="" width="36" height="8">
+                  </div>
+                  <div class="mock-window__bars">
+                    <div class="mock-window__bar mock-window__bar--strong mock-window__bar--w60"></div>
+                    <div class="mock-window__bar mock-window__bar--w100"></div>
+                    <div class="mock-window__bar mock-window__bar--w70"></div>
+                  </div>
+                </div>
+                <div class="mock-window__panel">
+                  <div class="mock-window__bars">
+                    <div class="mock-window__bar mock-window__bar--strong mock-window__bar--w60"></div>
+                    <div class="mock-window__bar mock-window__bar--w100"></div>
+                    <div class="mock-window__bar mock-window__bar--w60"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mock-window__keyboard">
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+              </div>
             </div>
           </div>
           <div class="project-card__body">
@@ -159,11 +171,35 @@
 
         <li class="project-card">
           <div class="project-card__mock">
-            <span class="project-card__badge">25 min</span>
             <div class="mock-window">
-              <div class="mock-window__bar mock-window__bar--w40"></div>
-              <div class="mock-window__bar mock-window__bar--w80"></div>
-              <div class="mock-window__bar mock-window__bar--w60"></div>
+              <div class="mock-window__screen">
+                <div class="mock-window__panel">
+                  <div class="mock-window__panel-header">
+                    <div class="mock-window__bars">
+                      <div class="mock-window__bar mock-window__bar--strong" style="width:6rem"></div>
+                      <div class="mock-window__bar" style="width:4rem"></div>
+                    </div>
+                    <span class="mock-window__chip">25 min</span>
+                  </div>
+                  <div class="mock-window__bars" style="margin-top:0.6rem">
+                    <div class="mock-window__bar mock-window__bar--w100"></div>
+                    <div class="mock-window__bar mock-window__bar--w70"></div>
+                  </div>
+                </div>
+                <div class="mock-window__panel">
+                  <div class="mock-window__bars">
+                    <div class="mock-window__bar mock-window__bar--strong mock-window__bar--w60"></div>
+                    <div class="mock-window__bar mock-window__bar--w100"></div>
+                    <div class="mock-window__bar mock-window__bar--w60"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mock-window__keyboard">
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+              </div>
             </div>
           </div>
           <div class="project-card__body">
@@ -174,11 +210,35 @@
 
         <li class="project-card">
           <div class="project-card__mock">
-            <span class="project-card__badge">Live</span>
             <div class="mock-window">
-              <div class="mock-window__bar mock-window__bar--w80"></div>
-              <div class="mock-window__bar mock-window__bar--w40"></div>
-              <div class="mock-window__bar mock-window__bar--w60"></div>
+              <div class="mock-window__screen">
+                <div class="mock-window__panel">
+                  <div class="mock-window__panel-header">
+                    <div class="mock-window__bars">
+                      <div class="mock-window__bar mock-window__bar--strong" style="width:6rem"></div>
+                      <div class="mock-window__bar" style="width:4rem"></div>
+                    </div>
+                    <span class="mock-window__chip">Live</span>
+                  </div>
+                  <div class="mock-window__bars" style="margin-top:0.6rem">
+                    <div class="mock-window__bar mock-window__bar--w100"></div>
+                    <div class="mock-window__bar mock-window__bar--w70"></div>
+                  </div>
+                </div>
+                <div class="mock-window__panel">
+                  <div class="mock-window__bars">
+                    <div class="mock-window__bar mock-window__bar--strong mock-window__bar--w60"></div>
+                    <div class="mock-window__bar mock-window__bar--w100"></div>
+                    <div class="mock-window__bar mock-window__bar--w60"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mock-window__keyboard">
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+              </div>
             </div>
           </div>
           <div class="project-card__body">
@@ -189,11 +249,35 @@
 
         <li class="project-card">
           <div class="project-card__mock">
-            <span class="project-card__badge">7 days</span>
             <div class="mock-window">
-              <div class="mock-window__bar mock-window__bar--w60"></div>
-              <div class="mock-window__bar mock-window__bar--w60"></div>
-              <div class="mock-window__bar mock-window__bar--w80"></div>
+              <div class="mock-window__screen">
+                <div class="mock-window__panel">
+                  <div class="mock-window__panel-header">
+                    <div class="mock-window__bars">
+                      <div class="mock-window__bar mock-window__bar--strong" style="width:6rem"></div>
+                      <div class="mock-window__bar" style="width:4rem"></div>
+                    </div>
+                    <span class="mock-window__chip">7 days</span>
+                  </div>
+                  <div class="mock-window__bars" style="margin-top:0.6rem">
+                    <div class="mock-window__bar mock-window__bar--w100"></div>
+                    <div class="mock-window__bar mock-window__bar--w70"></div>
+                  </div>
+                </div>
+                <div class="mock-window__panel">
+                  <div class="mock-window__bars">
+                    <div class="mock-window__bar mock-window__bar--strong mock-window__bar--w60"></div>
+                    <div class="mock-window__bar mock-window__bar--w100"></div>
+                    <div class="mock-window__bar mock-window__bar--w60"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mock-window__keyboard">
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+                <div class="mock-window__key"></div><div class="mock-window__key"></div>
+              </div>
             </div>
           </div>
           <div class="project-card__body">
@@ -205,12 +289,12 @@
     </div>
   </section>
 
-  <section class="section section--tinted" id="about" aria-labelledby="about-label">
+  <section class="section" id="about" aria-labelledby="about-label">
     <div class="wrap">
       <p class="eyebrow">ABOUT</p>
-      <h2 class="section__heading" id="about-label">
+      <h2 class="section__heading section__heading--light" id="about-label">
         BSc (Hons) PPE with Social Data Science from
-        <span class="accent">University College London</span>.
+        <span class="accent">University College London.</span>
       </h2>
 
       <ol class="cv">
@@ -253,25 +337,28 @@
     </div>
   </section>
 
-  <section class="contact wrap" id="contact" aria-labelledby="contact-label">
+  <section class="contact wrap section--tinted" id="contact" aria-labelledby="contact-label">
     <h2 class="contact__heading" id="contact-label">contact<br>me</h2>
     <p class="contact__body">Feel free to reach out - I'd love to hear from you.</p>
     <div class="contact__links">
       <a class="pill-link" href="mailto:vanruth123@gmail.com">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <rect x="1.5" y="3" width="13" height="10" rx="1.5"/>
-          <path d="M2 4l6 5 6-5"/>
-        </svg>
+        <img src="/img/icon-mail.svg" alt="" width="20" height="20">
         vanruth123@gmail.com
       </a>
-      <!-- LinkedIn pill pending: add a URL here once confirmed, e.g.
-      <a class="pill-link" href="https://www.linkedin.com/in/...">LinkedIn</a>
-      -->
+      <a class="pill-link" href="https://www.linkedin.com/in/ruth-van/">
+        <img src="/img/icon-linkedin.svg" alt="" width="20" height="20">
+        LinkedIn
+      </a>
     </div>
   </section>
 
   <footer class="site-footer">
-    <p>© 2026 Ruth</p>
+    <!-- Deliberately non-clickable placeholders — no real Privacy Policy or
+         Terms & Conditions pages exist yet. Replace with real <a> links and
+         real pages before treating these as functional. -->
+    <span class="site-footer__placeholder" aria-disabled="true">Privacy Policy</span>
+    <span class="site-footer__placeholder" aria-disabled="true">Terms &amp; Conditions</span>
+    <span>2026 Ruth</span>
   </footer>
 </main>
 

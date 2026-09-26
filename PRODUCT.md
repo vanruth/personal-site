@@ -59,43 +59,51 @@ it. Not a destination people browse deeply or return to often.
 
 ## Brand Commitments
 
-- Goes by first name only, **"Ruth"** — no surname anywhere on the site,
-  **reaffirmed** after a design reference that showed "Ruth Van" in the
-  footer was explicitly declined. Do not add a surname without asking again;
-  this has now been asked and declined twice.
-- **A real photo has been added to the hero** (reverses the prior no-photo
-  choice, confirmed explicitly). As of this writing the `<img>` still points
-  at `img/headshot-placeholder.svg` pending the actual file — replace it
-  first before treating "has a photo" as true in front of a visitor.
-- **LinkedIn: still undecided.** A commented-out `<a class="pill-link">` sits
-  next to the email link in the contact section, ready to uncomment once a
-  URL is confirmed. Do not add it from a guess.
-- **No GitHub link**, and **no `sameAs` entries** in the JSON-LD. Still an
-  explicit choice. Don't add without asking again.
-- **Visual identity is "tech + handwritten"** (superseded an earlier
-  "editorial + tech + handwritten" identity, which itself superseded the
-  original brown-accent/system-font identity — each recorded here so the
-  reasoning stays legible, not because any is still live):
-  - **Tech (leads)**: JetBrains Mono carries nearly everything — nav, hero
-    bio, project cards, career-history table. Not a "labels only" accent
-    role anymore; it's the primary voice.
-  - **Handwritten (accent, three moments only)**: Caveat, used for the nav
-    wordmark ("ruth"), the hero greeting ("hey! i'm ruth"), and the contact
-    heading ("contact me"). Never for body copy or data.
-  - No editorial serif in the current identity — Libre Caslon Text (used in
-    the prior "editorial + tech + handwritten" pass) has been dropped
-    entirely, not just de-emphasized.
-  - Accent stays the ballpoint-blue ink color (`#1f4a94` light / `#89aee6`
-    dark) carried over from the previous identity.
-  - Sections are plain, no card fill (kept from the previous identity);
-    Projects is the one exception — project cards use a filled, tinted card
-    treatment with a hover-lift, matching the reference this identity was
-    recreated from.
-  - Background carries a woven "linen paper" texture (layered diagonal
-    hairline crosshatch + fractal noise grain, CSS-only) — more pronounced
-    than the previous pass's barely-there grain, per explicit request.
-- Only contact channel currently live is a single email
-  (`vanruth123@gmail.com`); LinkedIn is pending (see above). No phone.
+- Goes by first name only, **"Ruth"** — no surname anywhere on the site.
+  Reaffirmed a second time after the user's own Figma mockup showed "Ruth
+  Van" in the footer; declined again. Do not add a surname without asking
+  again — this has now been asked and declined twice.
+- **A real photo is live in the hero** (`img/headshot.png`) — reverses the
+  original no-photo choice, confirmed explicitly, sourced from the user's own
+  Figma design rather than a separate upload. Not a placeholder.
+- **LinkedIn is live**: `https://www.linkedin.com/in/ruth-van/`, in the
+  contact section and in the JSON-LD `sameAs`. Reverses the original
+  no-social-links choice, confirmed explicitly with the URL supplied.
+- **No GitHub link.** Still an explicit choice. Don't add without asking.
+- **Footer carries "Privacy Policy" and "Terms & Conditions"**, confirmed as
+  **deliberately non-clickable placeholder text** (plain `<span>`s, not
+  `<a>`s) — no real pages exist. Do not turn these into real links without
+  either real page content or asking again.
+- **Visual identity recreated faithfully from a Figma design**
+  (figma.com/design/EFHezz15epD0friES2o9TS, node 157:8) — supersedes the
+  earlier from-scratch "tech + handwritten" pass, which itself superseded
+  "editorial + tech + handwritten," which superseded the original
+  brown-accent/system-font identity. Each recorded here so the reasoning
+  stays legible, not because any but the current one is live:
+  - **Fonts changed from the previous pass**: IBM Plex Mono (not JetBrains
+    Mono) carries nav/body/data; La Belle Aurore (not Caveat) is the
+    handwritten face, reserved for the same three moments — nav wordmark,
+    hero greeting, "contact me" — never body copy or data.
+  - **Accent changed from ballpoint-blue to warm taupe.** The source
+    specified `#a48670`, which measured 2.72:1 against the page background —
+    under AA even at the large-text 3:1 allowance. Darkened to `#7d5738`
+    light / `#d1b596` dark, same hue, clears 4.5:1 comfortably. If the accent
+    is ever revisited, keep it AA-checked; don't silently restore the exact
+    source value.
+  - **Project cards now show a detailed browser-chrome mockup** (tabs dots +
+    window controls, using real downloaded SVG icons on the first card;
+    skeleton content bars + a status chip on all four) on one of four tinted
+    backgrounds (`--tint-1..4`, exact values from the source) — a more
+    literal "screenshot" stand-in than the previous plain skeleton bars.
+    Still illustrative chrome, not a claim of a real product screenshot.
+  - **Hero photo sits in a straight (non-tilted) white mat**, not the
+    rotated/tilted polaroid treatment from an earlier pass.
+  - Background keeps the woven "linen paper" texture from the previous pass.
+  - Contact pill uses a literal black/`--text`-coloured border (not the
+    muted `--rule` tone used elsewhere) — a deliberate stronger accent
+    around the one clearly interactive cluster on the page, per the source.
+- Only contact channels: email (`vanruth123@gmail.com`) and LinkedIn (above).
+  No phone.
 
 ## Evidence on Hand
 

@@ -1,9 +1,0 @@
-<!-- PLACEHOLDER. Swap the <img src> in index.html for a real photo (portrait,
-     ~4:5 aspect ratio works best with .hero__photo-frame) once supplied, and
-     delete this file — it's only here so the layout doesn't show a broken
-     image icon in the meantime. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Placeholder portrait">
-  <rect width="400" height="500" fill="#efeee8"/>
-  <circle cx="200" cy="200" r="70" fill="#ddd9d0"/>
-  <path d="M70 460c0-95 58-150 130-150s130 55 130 150z" fill="#ddd9d0"/>
-</svg>
