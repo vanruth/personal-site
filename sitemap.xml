@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Hand-maintained. /experiments is deliberately absent: it has no content
-     yet and is marked noindex. Add its <url> block here once it does. -->
+<!-- Single-page site — everything (projects, about, contact) lives at "/"
+     as anchor sections, so there is only ever one URL to list here. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ruthvan.netlify.app/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <priority>1.0</priority>
   </url>
 </urlset>
