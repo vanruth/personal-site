@@ -168,6 +168,11 @@ p + p { margin-top: 1.1rem; }
   line-height: 1.1;
   color: var(--text);
   text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.floating-nav__logo:hover {
+  color: var(--accent);
 }
 
 .floating-nav__links {
@@ -242,48 +247,25 @@ p + p { margin-top: 1.1rem; }
 }
 
 .hero__greeting {
-  position: relative;
   display: inline-block;
+  transform-origin: left center;
   font-family: var(--font-hand);
   font-size: 2.75rem;
   line-height: 1.1;
   color: var(--text);
+  transition: transform 0.2s ease;
+}
+
+.hero__greeting:hover {
+  transform: scale(1.03);
 }
 
 @media (min-width: 56rem) {
   .hero__greeting { font-size: 3.75rem; }
 }
 
-/* A hand-drawn squiggle that "writes itself" under the greeting on
-   hover, echoing the handwritten wordmark/greeting/"contact me". */
-.hero__greeting-mark {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.14em;
-  width: 100%;
-  height: 0.3em;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.hero__greeting-mark path {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 500;
-  stroke-dashoffset: 500;
-  transition: stroke-dashoffset 0.6s ease;
-}
-
-.hero__greeting:hover .hero__greeting-mark path {
-  stroke-dashoffset: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .hero__greeting-mark path { transition: none; }
+  .hero__greeting { transition: none; }
 }
 
 .hero__bio {
