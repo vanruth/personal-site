@@ -496,10 +496,30 @@ p + p { margin-top: 1.1rem; }
 .project-card__title {
   margin-top: 2rem;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.5rem;
   line-height: 2.5rem;
   font-weight: 500;
   color: var(--text);
+}
+
+.project-card__arrow {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-6px);
+  color: var(--accent);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.project-card:hover .project-card__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__arrow { transition: none; }
 }
 
 .project-card__desc {
