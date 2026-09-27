@@ -113,6 +113,16 @@ it. Not a destination people browse deeply or return to often.
   - Contact pill uses a literal black/`--text`-coloured border (not the
     muted `--rule` tone used elsewhere) — a deliberate stronger accent
     around the one clearly interactive cluster on the page, per the source.
+  - **About/Contact/Footer re-verified against exact node geometry.** The
+    About body copy is one continuous paragraph in the source (not the two
+    separate `<p>` tags an earlier pass split it into) — merged back to one.
+    About/Contact/Footer all independently measure an ~80px side gutter in
+    the source (Projects measures a distinctly narrower 55px) — each section
+    keeps its own gutter rather than sharing one value. Contact's heading/
+    body/pill block totals exactly 400px tall at the 1512px design width,
+    matching the source's tinted background rectangle exactly once the
+    real 100px/70px-line-height "contact me" size (not a smaller clamp) is
+    used — a good cross-check that the numbers are right.
 - Only contact channels: email (`vanruth123@gmail.com`) and LinkedIn (above).
   No phone.
 
