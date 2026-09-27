@@ -1,7 +1,10 @@
 # Ruth — personal site
 
-Plain HTML and CSS. No build step, no dependencies, no JavaScript. Every file
-in this repo is served to the browser exactly as written.
+Plain HTML and CSS. No build step, no dependencies, and effectively no
+JavaScript — the only exception is a small inline scroll-reveal script at
+the end of `index.html` (fades/rises `[data-reveal]` elements into view;
+degrades safely with no JS). Every file in this repo is served to the
+browser exactly as written.
 
 A single scrolling page — floating nav, hero, projects, about, contact — all
 as anchor sections on `/`.

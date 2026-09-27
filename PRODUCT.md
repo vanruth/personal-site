@@ -8,11 +8,16 @@ web
 
 ## Stack
 
-Static HTML/CSS, no build step, no framework, no dependencies, no JavaScript
-at all — a single scrolling page with anchor-link sections (`#projects`,
-`#about`, `#contact`), a fixed floating nav, and hover-only interaction.
-Deployed to Netlify from GitHub (`vanruth/personal-site`, `main` branch,
-auto-deploy on push). Live at `ruthvan.netlify.app`.
+Static HTML/CSS, no build step, no framework, no dependencies — a single
+scrolling page with anchor-link sections (`#projects`, `#about`, `#contact`),
+a fixed floating nav, and mostly hover-only interaction. One deliberate,
+minimal exception to an otherwise no-JavaScript site: a ~20-line vanilla
+script (no dependencies) that fades/rises `[data-reveal]` elements into
+place as they scroll into view, using `IntersectionObserver`. It degrades
+safely — every element is fully visible immediately if JS is unavailable or
+`prefers-reduced-motion` is set — so it never blocks content. Deployed to
+Netlify from GitHub (`vanruth/personal-site`, `main` branch, auto-deploy on
+push). Live at `ruthvan.netlify.app`.
 
 ## Users
 
@@ -48,8 +53,12 @@ it. Not a destination people browse deeply or return to often.
 
 - Single `index.html` with a shared `css/style.css`; no CMS, no templating —
   editing means editing the HTML directly.
-- No JavaScript anywhere. Nav, project-card hover, and section anchors are
-  all plain HTML/CSS.
+- Effectively no JavaScript. Nav, project-card hover, and section anchors
+  are all plain HTML/CSS. The one exception — the `[data-reveal]` scroll
+  animation script at the end of `index.html` — was added on explicit
+  request after confirming with the user that it's worth breaking the
+  no-JS rule for; keep it that way (one small inline script, no build step,
+  no dependencies) rather than growing it into more JS over time.
 - SEO is a first-class technical requirement, not an afterthought: `<title>`/
   meta description, canonical tag, Open Graph tags, JSON-LD `Person` schema,
   hand-maintained `sitemap.xml`, `robots.txt`.

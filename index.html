@@ -80,7 +80,7 @@
 
 <main id="main">
   <section class="hero">
-    <div class="hero__text">
+    <div class="hero__text" data-reveal="fade">
       <h1 class="hero__greeting">hey! i'm ruth</h1>
       <p class="hero__bio">
         i'm a multidisciplinarian with a background in political science,
@@ -92,20 +92,20 @@
       </p>
     </div>
 
-    <div class="hero__photo-frame">
+    <div class="hero__photo-frame" data-reveal="fade">
       <img src="/img/headshot.png" alt="Ruth" width="890" height="1268">
     </div>
   </section>
 
   <section class="section section--tinted" id="projects" aria-labelledby="projects-label">
     <div class="wrap projects-layout">
-      <div class="projects-intro">
+      <div class="projects-intro" data-reveal>
         <p class="eyebrow">PROJECTS</p>
         <h2 class="section__heading" id="projects-label">Experimenting across<br>domains</h2>
       </div>
 
       <ul class="project-grid">
-        <li class="project-card">
+        <li class="project-card" data-reveal>
           <div class="project-card__mock">
             <div class="mock-window">
               <div class="mock-window__screen">
@@ -146,7 +146,7 @@
           <p class="project-card__desc">Advanced, user friendly Notion template for aspiring polyglots</p>
         </li>
 
-        <li class="project-card">
+        <li class="project-card" data-reveal>
           <div class="project-card__mock">
             <div class="mock-window">
               <div class="mock-window__screen">
@@ -189,7 +189,7 @@
           <p class="project-card__desc">Vibe-coded HTML widget to track study / work sessions</p>
         </li>
 
-        <li class="project-card">
+        <li class="project-card" data-reveal>
           <div class="project-card__mock">
             <div class="mock-window">
               <div class="mock-window__screen">
@@ -232,7 +232,7 @@
           <p class="project-card__desc">Automation to notify about purchases through a telegram bot</p>
         </li>
 
-        <li class="project-card">
+        <li class="project-card" data-reveal>
           <div class="project-card__mock">
             <div class="mock-window">
               <div class="mock-window__screen">
@@ -280,14 +280,14 @@
 
   <section class="section" id="about" aria-labelledby="about-label">
     <div class="wrap about-layout">
-      <p class="eyebrow">ABOUT</p>
+      <p class="eyebrow" data-reveal>ABOUT</p>
       <hr class="about__rule">
-      <h2 class="section__heading section__heading--light" id="about-label">
+      <h2 class="section__heading section__heading--light" id="about-label" data-reveal>
         BSc (Hons) PPE with Social Data Science from
         <span class="accent">University College London.</span>
       </h2>
 
-      <ol class="cv">
+      <ol class="cv" data-reveal>
         <li>
           <span class="cv__year">2026.</span>
           <span class="cv__org">Standard Chartered (SC Ventures)</span>
@@ -305,7 +305,7 @@
         </li>
       </ol>
 
-      <p class="about__body">
+      <p class="about__body" data-reveal>
         Across my education and career, I have been drawn to questions that
         sit at the intersection of multiple disciplines. Studying Politics,
         Economics and Philosophy offers three distinct but interconnected
@@ -323,9 +323,9 @@
   </section>
 
   <section class="contact section--tinted" id="contact" aria-labelledby="contact-label">
-    <h2 class="contact__heading" id="contact-label">contact<br>me</h2>
-    <p class="contact__body">Feel free to reach out - I'd love to hear from you.</p>
-    <div class="contact__links">
+    <h2 class="contact__heading" id="contact-label" data-reveal>contact<br>me</h2>
+    <p class="contact__body" data-reveal>Feel free to reach out - I'd love to hear from you.</p>
+    <div class="contact__links" data-reveal>
       <a class="pill-link" href="mailto:vanruth123@gmail.com">
         <img src="/img/icon-mail.svg" alt="" width="20" height="20">
         vanruth123@gmail.com
@@ -347,5 +347,32 @@
   </footer>
 </main>
 
+<!-- The one deliberate exception to a no-JS site (see PRODUCT.md): fades
+     and rises [data-reveal] elements into place as they enter the
+     viewport. Degrades safely — every element is fully visible from the
+     start if JS or IntersectionObserver is unavailable. -->
+<script>
+(function () {
+  var els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!('IntersectionObserver' in window) || reduceMotion) {
+    els.forEach(function (el) { el.classList.add('is-visible'); });
+    return;
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>
