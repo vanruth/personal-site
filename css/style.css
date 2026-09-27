@@ -509,6 +509,16 @@ p + p { margin-top: 1.1rem; }
    default (48rem) to reproduce the source's exact 2-line break. */
 .about-layout .section__heading--light { max-width: 61.8125rem; }
 
+/* A third rule the source has right under the eyebrow, before the
+   heading — easy to miss since Projects' eyebrow doesn't have one. */
+.about-layout .eyebrow { margin-bottom: 0; }
+
+.about__rule {
+  margin: 1.9375rem 0 1.25rem;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
 .cv {
   list-style: none;
   padding: 1rem 0 0;
@@ -533,9 +543,9 @@ p + p { margin-top: 1.1rem; }
 
 .about__body {
   margin-top: 4.125rem;
+  margin-bottom: 2.5rem;
   padding-top: 1.5625rem;
   border-top: 1px solid var(--rule);
-  max-width: 84.5625rem;
   font-size: 1rem;
   line-height: 1.25;
   color: var(--text);
