@@ -96,9 +96,20 @@ it. Not a destination people browse deeply or return to often.
     backgrounds (`--tint-1..4`, exact values from the source) — a more
     literal "screenshot" stand-in than the previous plain skeleton bars.
     Still illustrative chrome, not a claim of a real product screenshot.
+    Re-verified against the source's exact node geometry (not just the
+    screenshot): only the tinted mockup box is a "card" — the title and
+    description sit as plain text below it, not inside a bordered/shadowed
+    container. The eyebrow + heading form a narrow left rail beside the 2x2
+    card grid (not a full-width header above it), a layout the flattened
+    React/Tailwind export doesn't make obvious from bounding boxes alone.
   - **Hero photo sits in a straight (non-tilted) white mat**, not the
-    rotated/tilted polaroid treatment from an earlier pass.
-  - Background keeps the woven "linen paper" texture from the previous pass.
+    rotated/tilted polaroid treatment from an earlier pass. Tilts a few
+    degrees on hover as a small interactive touch (not shown in the static
+    source, since it can't show hover states).
+  - Removed the woven "linen paper" background texture and the decorative
+    SVG marginalia from the previous pass — the texture made the hero's
+    large empty area read as a visibly different shade from the nav's
+    solid-filled background; the user asked for both gone.
   - Contact pill uses a literal black/`--text`-coloured border (not the
     muted `--rule` tone used elsewhere) — a deliberate stronger accent
     around the one clearly interactive cluster on the page, per the source.

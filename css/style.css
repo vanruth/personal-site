@@ -292,16 +292,16 @@ p + p { margin-top: 1.1rem; }
 .section--tinted { background: var(--bg-elevated); }
 
 .eyebrow {
-  font-size: var(--step--1);
-  letter-spacing: 0.12em;
-  color: var(--text-faint);
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  color: var(--text);
   margin-bottom: 0.75rem;
 }
 
 .section__heading {
-  font-size: var(--step-2);
+  font-size: 2rem;
+  line-height: 1.25;
   font-weight: 500;
-  letter-spacing: -0.01em;
   max-width: 34rem;
 }
 
@@ -312,38 +312,67 @@ p + p { margin-top: 1.1rem; }
 }
 
 /* ==========================================================================
-   Projects — each card is a small fake "laptop screenshot": a browser-chrome
-   mockup with skeleton content, floating on a tinted background.
+   Projects — a narrow intro rail (eyebrow + heading) beside a 2x2 grid of
+   cards. Each card is a small fake "laptop screenshot": a browser-chrome
+   mockup with skeleton content, on a tinted background — with the title and
+   description sitting as plain text below it, not inside a bordered card.
+   Column widths, gaps and every mock-window measurement below are taken
+   directly from the source's resolved geometry.
    ========================================================================== */
 
-.project-grid {
-  margin-top: 2.5rem;
+/* Overrides the shared .wrap measure — Projects uses a much wider,
+   near-full-bleed measure than the --measure/--gutter tokens give it
+   (content spans roughly 55px to 1461px at the 1512px design width).
+   Kept at the normal gutter below the same breakpoint that switches the
+   rail/grid to 2 columns, so the fixed 344px mock-window doesn't overflow
+   a narrower viewport. */
+@media (min-width: 64rem) {
+  .wrap.projects-layout {
+    max-width: 100rem;
+    padding-inline: 3.4375rem;
+  }
+}
+
+.projects-layout {
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
 }
 
-@media (min-width: 42rem) {
-  .project-grid { grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+@media (min-width: 64rem) {
+  .projects-layout { grid-template-columns: 27.25rem 1fr; gap: 0; }
 }
 
-.project-card {
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--bg-card);
-  border: 1px solid var(--rule);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+.projects-intro .section__heading { max-width: 19.25rem; }
+
+.project-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem 1.5rem;
 }
 
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 2px 4px rgba(18,18,18,0.05), 0 18px 32px rgba(18,18,18,0.12);
+.project-card { min-width: 0; }
+
+@media (min-width: 34rem) {
+  .project-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 64rem) {
+  .project-grid { column-gap: 3.125rem; row-gap: 4rem; }
 }
 
 .project-card__mock {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.25rem 1.5rem;
+  aspect-ratio: 460 / 322;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
 }
 
 .project-card:nth-child(1) .project-card__mock { background: var(--tint-1); }
@@ -356,20 +385,26 @@ p + p { margin-top: 1.1rem; }
    one — the same convention as a wireframe icon. */
 .mock-window {
   width: 100%;
+  min-width: 0;
   max-width: 21.5rem;
   background: var(--bg-card);
   border: 1px solid rgba(0,0,0,0.08);
   border-radius: 18px;
   box-shadow: 0 10px 24px rgba(0,0,0,0.07);
   overflow: hidden;
+  transition: transform 0.25s ease;
+}
+
+.project-card:hover .mock-window {
+  transform: translateY(-4px);
 }
 
 .mock-window__screen {
   background: #f8f7f4;
-  padding: 1.1rem;
+  padding: 1.125rem;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.875rem;
 }
 
 .mock-window__panel {
@@ -384,10 +419,12 @@ p + p { margin-top: 1.1rem; }
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  margin-bottom: 0.625rem;
 }
 
-.mock-window__bars { display: flex; flex-direction: column; gap: 0.35rem; }
-.mock-window__bars + .mock-window__bars { margin-top: 0.5rem; }
+.mock-window__panel-header .mock-window__bars { gap: 0.25rem; }
+
+.mock-window__bars { display: flex; flex-direction: column; gap: 0.5rem; }
 
 .mock-window__bar {
   height: 0.375rem;
@@ -396,20 +433,18 @@ p + p { margin-top: 1.1rem; }
 }
 
 .mock-window__bar--strong { background: #d1d5db; }
-.mock-window__bar--w60 { width: 60%; }
-.mock-window__bar--w70 { width: 70%; }
-.mock-window__bar--w80 { width: 80%; }
+.mock-window__bar--tall { height: 0.5rem; }
 .mock-window__bar--w100 { width: 100%; }
 
 .mock-window__chip {
   flex-shrink: 0;
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: 0.625rem;
   font-weight: 500;
   color: #6b7280;
   background: #f3f4f6;
   border-radius: 999px;
-  padding: 0.2rem 0.5rem;
+  padding: 0.375rem 0.625rem;
   white-space: nowrap;
 }
 
@@ -418,12 +453,16 @@ p + p { margin-top: 1.1rem; }
 .mock-window__keyboard {
   background: #f3f4f6;
   display: flex;
-  gap: 0.4rem;
-  padding: 0.5rem 0.85rem;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding: 0.5rem 0.875rem;
+  overflow: hidden;
 }
 
 .mock-window__key {
-  flex: 1;
+  flex-shrink: 0;
+  width: 1.75rem;
   height: 0.5rem;
   border-radius: 3px;
   background: #d1d5db;
@@ -433,22 +472,23 @@ p + p { margin-top: 1.1rem; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.625rem;
 }
 
 .mock-window__topbar img { height: 0.5rem; width: auto; }
 
-.project-card__body { padding: 1.5rem 1.75rem 1.75rem; }
-
 .project-card__title {
-  font-size: var(--step-1);
-  font-weight: 500;
+  margin-top: 2rem;
   margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  font-weight: 500;
+  color: var(--text);
 }
 
 .project-card__desc {
-  font-size: var(--step--1);
-  line-height: 1.6;
+  font-size: 1.25rem;
+  line-height: 1.25;
   color: var(--text-muted);
 }
 
