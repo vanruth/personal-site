@@ -506,16 +506,18 @@ p + p { margin-top: 1.1rem; }
 }
 
 .project-card__arrow {
-  display: inline-block;
+  width: 1.375rem;
+  height: 1.375rem;
+  flex-shrink: 0;
   opacity: 0;
-  transform: translateX(-6px);
-  color: var(--accent);
+  transform: translate(-4px, 4px);
+  color: var(--text);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .project-card:hover .project-card__arrow {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate(0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
