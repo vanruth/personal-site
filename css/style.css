@@ -26,9 +26,6 @@
   --rule:         #ddd9d0;
   --rule-strong:  #c7c2b6;
 
-  --decor:        #7d5738;
-  --decor-alpha:  0.22;
-
   /* Mono carries nearly everything — nav, body, project/career data.
      Handwritten (La Belle Aurore) is reserved for exactly three moments:
      the wordmark, the hero greeting, and "contact me". */
@@ -63,9 +60,6 @@
     --accent-hover: #e2c8ab;
     --rule:         #2c2a26;
     --rule-strong:  #3d3a34;
-
-    --decor:        #d1b596;
-    --decor-alpha:  0.18;
 
     --tint-1: #241f26;
     --tint-2: #162427;
@@ -102,19 +96,6 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-image:
-    repeating-linear-gradient(45deg,  rgba(0,0,0,0.025) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(-45deg, rgba(0,0,0,0.02)  0 1px, transparent 1px 3px),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-image:
-      repeating-linear-gradient(45deg,  rgba(255,255,255,0.02) 0 1px, transparent 1px 3px),
-      repeating-linear-gradient(-45deg, rgba(255,255,255,0.015) 0 1px, transparent 1px 3px),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  }
 }
 
 img { max-width: 100%; display: block; height: auto; }
@@ -144,39 +125,6 @@ p + p { margin-top: 1.1rem; }
 .skip-link:focus { left: 0; }
 
 /* ==========================================================================
-   Decorative marginalia
-   ========================================================================== */
-
-.decor {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  color: var(--decor);
-}
-
-.decor svg {
-  position: absolute;
-  opacity: var(--decor-alpha);
-  overflow: visible;
-}
-
-.decor__a { top: 9%;  left: 3%;   width: 92px; }
-.decor__b { top: 17%; right: 5%;  width: 46px; }
-.decor__c { top: 46%; left: 2.5%; width: 58px; }
-.decor__d { top: 64%; right: 3%;  width: 78px; }
-.decor__e { bottom: 18%; left: 6%; width: 38px; }
-.decor__f { bottom: 9%;  right: 8%; width: 52px; }
-
-@media (max-width: 61.99rem) {
-  .decor__a, .decor__c, .decor__d { display: none; }
-  .decor__b { top: 3%; right: 4%; width: 34px; }
-  .decor__e { bottom: 6%; left: 4%; width: 28px; }
-  .decor__f { bottom: 3%; right: 5%; width: 34px; }
-}
-
-/* ==========================================================================
    Shell
    ========================================================================== */
 
@@ -193,32 +141,31 @@ p + p { margin-top: 1.1rem; }
    Floating nav
    ========================================================================== */
 
-.nav-spacer { height: 5.5rem; }
+.nav-spacer { height: 6.75rem; }
 
+/* Plain text nav, no pill/card chrome — matches the source exactly: no
+   background, border, shadow or blur, just the wordmark and links sitting
+   directly on the page. Kept fixed so it stays reachable while scrolling;
+   a solid --bg fill (not translucent) keeps scrolled content from showing
+   through underneath it. */
 .floating-nav {
   position: fixed;
-  top: 1.25rem;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 40;
-  width: min(calc(100% - 2.5rem), 68rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(10px) saturate(1.1);
-  -webkit-backdrop-filter: blur(10px) saturate(1.1);
-  box-shadow: 0 1px 2px rgba(18,18,18,0.05), 0 12px 28px rgba(18,18,18,0.08);
-  border: 1px solid var(--rule);
+  padding: 0.5rem 3rem 0;
+  background: var(--bg);
 }
 
 .floating-nav__logo {
   font-family: var(--font-hand);
-  font-size: 1.6rem;
-  line-height: 1;
+  font-size: 3.75rem;
+  line-height: 1.1;
   color: var(--text);
   text-decoration: none;
 }
@@ -226,9 +173,8 @@ p + p { margin-top: 1.1rem; }
 .floating-nav__links {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: var(--step--1);
-  letter-spacing: 0.02em;
+  gap: 0.6rem;
+  font-size: 1.25rem;
   color: var(--text-muted);
 }
 
@@ -259,16 +205,28 @@ p + p { margin-top: 1.1rem; }
 }
 
 @media (max-width: 30rem) {
-  .floating-nav { padding: 0.7rem 1.1rem; gap: 0.75rem; }
-  .floating-nav__links { gap: 0.35rem; font-size: var(--step--2); }
+  .floating-nav { padding: 0.75rem 1.5rem; }
+  .floating-nav__logo { font-size: 2.25rem; }
+  .floating-nav__links { gap: 0.4rem; font-size: 0.9375rem; }
+  .nav-spacer { height: 4rem; }
 }
 
 /* ==========================================================================
    Hero
    ========================================================================== */
 
+/* The hero's content cluster (text + photo) is its own narrower, centred
+   column — deliberately not the wide near-full-bleed measure the sections
+   below it use. Column widths and the text/photo gap are taken directly
+   from the source's resolved geometry (28.9rem text column, 15.6rem photo,
+   3.5rem gap between them). */
 .hero {
-  padding-block: 2.5rem 5rem;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: 3rem 1.5rem 3.5rem;
   display: grid;
   gap: 2.5rem;
   align-items: center;
@@ -276,40 +234,52 @@ p + p { margin-top: 1.1rem; }
 
 @media (min-width: 56rem) {
   .hero {
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
-    padding-block: 3.5rem 6rem;
+    max-width: 56rem;
+    grid-template-columns: 28.9rem 15.6rem;
+    gap: 3.5rem;
+    padding: 9.25rem 1.75rem 6rem 6.25rem;
   }
 }
 
 .hero__greeting {
   font-family: var(--font-hand);
-  font-size: clamp(2.5rem, 6vw, 3.75rem);
-  line-height: 1.05;
+  font-size: 2.75rem;
+  line-height: 1.1;
   color: var(--text);
 }
 
+@media (min-width: 56rem) {
+  .hero__greeting { font-size: 3.75rem; }
+}
+
 .hero__bio {
-  margin-top: 1.5rem;
-  max-width: 30rem;
-  font-size: var(--step-0);
-  line-height: 1.8;
+  margin-top: 2.125rem;
+  max-width: 28.9rem;
+  font-size: 1.25rem;
+  line-height: 1.3;
   color: var(--text-muted);
 }
 
-/* A plain white photo mat, straight (not tilted) — matches the source. */
+/* A plain white photo mat, straight (not tilted) — matches the source.
+   Insets taken from the source's exact photo-vs-mat geometry: slightly
+   more padding at the bottom than the other three sides. */
 .hero__photo-frame {
   justify-self: center;
-  width: min(100%, 17rem);
-  padding: 0.75rem;
+  width: min(100%, 15.6rem);
+  padding: 1.1rem 1rem 1.3rem 1.1rem;
   background: var(--bg-card);
   border: 1px solid var(--rule);
   box-shadow: 0 2px 4px rgba(18,18,18,0.05), 0 20px 40px rgba(18,18,18,0.10);
+  transition: transform 0.3s ease;
+}
+
+.hero__photo-frame:hover {
+  transform: rotate(-3deg);
 }
 
 .hero__photo-frame img {
   width: 100%;
-  aspect-ratio: 4 / 5.6;
+  aspect-ratio: 215.85 / 307.53;
   object-fit: cover;
   background: var(--bg-elevated);
 }
